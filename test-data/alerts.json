@@ -1,0 +1,4 @@
+{
+  "ERROR_INVALID_CREDENTIALS": "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.",
+  "ERROR_EMPTY_FIELD": "A login and a password are required."
+}

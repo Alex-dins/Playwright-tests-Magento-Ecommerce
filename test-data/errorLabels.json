@@ -1,0 +1,4 @@
+{
+  "ERROR_LABEL_FIELD_REQUIRED": "This is a required field.",
+  "ERROR_LABEL_INCORRECT_EMAIL": "Please enter a valid email address (Ex: johndoe@domain.com)."
+}
