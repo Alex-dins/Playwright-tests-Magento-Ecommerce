@@ -6,19 +6,24 @@ export class LoginPage {
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
   readonly errorAlert: Locator;
+  readonly errorRequiredLabel: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.emailInput = page.locator("id=email");
     this.passwordInput = page.locator("id=pass");
     this.loginButton = page.getByRole("button", { name: "Sign In" });
-    // this.errorAlert = page.getByRole("alert").locator("div").first();
     this.errorAlert = page.locator('[data-ui-id="message-error"]');
+    this.errorRequiredLabel = page.locator("id=email-error");
   }
 
   async login(email: string, password: string) {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
+    await this.loginButton.click();
+  }
+  async waitForMessage(timeout: number) {
+    await this.page.waitForTimeout(timeout);
     await this.loginButton.click();
   }
 }

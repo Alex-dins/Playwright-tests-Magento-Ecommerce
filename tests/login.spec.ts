@@ -1,9 +1,10 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../page-objects/loginPage";
-import { EndpointMaps } from "../helper/endpoitMaps";
+import { EndpointMaps } from "../helper/endpointMaps";
 import { MyAccountPage } from "../page-objects/myAccountPage";
 import { generateFakeUser } from "../helper/fakeUser";
 import alerts from "../test-data/alerts.json";
+import errorLabels from "../test-data/errorLabels.json";
 
 test.describe("Testing Sign In", () => {
   test.beforeEach(async ({ page }) => {
@@ -29,5 +30,18 @@ test.describe("Testing Sign In", () => {
     //Check error empty fields
     await expect(loginPage.errorAlert).toBeVisible();
     await expect(loginPage.errorAlert).toContainText(alerts.ERROR_EMPTY_FIELD);
+  });
+
+  test("Incorrect email", async ({ page }) => {
+    //Logging in
+    const loginPage = new LoginPage(page);
+    const fakeUser = generateFakeUser();
+    await loginPage.login(fakeUser.username, fakeUser.password);
+    await loginPage.waitForMessage(1000);
+    //Check error labels
+    await expect(loginPage.errorRequiredLabel).toBeVisible();
+    await expect(loginPage.errorRequiredLabel).toContainText(
+      errorLabels.ERROR_LABEL_INCORRECT_EMAIL
+    );
   });
 });

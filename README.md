@@ -18,4 +18,4 @@ Run `npm install` (or `npm i` for the short version) to install the dev dependen
 
 ## Tests
 
-Run ` npm run tests` to run the tests in headed mode in Chrome browser.
+Run `npm run tests` to run the tests in headed mode in Chrome browser.
