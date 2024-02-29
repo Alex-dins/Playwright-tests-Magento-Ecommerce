@@ -17,12 +17,13 @@ export class LoginPage {
     this.errorRequiredLabel = page.locator("id=email-error");
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<void> {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
   }
-  async waitForMessage(timeout: number) {
+
+  async waitForMessage(timeout: number): Promise<void> {
     await this.page.waitForTimeout(timeout);
     await this.loginButton.click();
   }

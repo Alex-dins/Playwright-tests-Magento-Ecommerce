@@ -15,5 +15,15 @@ test.describe("Testing My Wish List", () => {
     const mainPage = new MainPage(page);
     await mainPage.isOnMainPage();
     await mainPage.chooseCategory(WOMEN_CATEGORIES.tops.jackets);
+
+    await expect(page).toHaveURL(EndpointMaps.WOMEN_JACKETS);
+    await expect(mainPage.wishlistSideBlock).toContainText(
+      "You have no items in your wish list."
+    );
+
+    await mainPage.selectItemByLowerPrice();
+
+    await expect(page).toHaveURL(EndpointMaps.WISHLIST);
+    await expect(mainPage.itemsInWishListBlock).toHaveCount(1);
   });
 });

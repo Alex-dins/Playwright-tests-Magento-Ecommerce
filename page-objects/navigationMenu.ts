@@ -8,8 +8,8 @@ export class NavigationMenu {
   readonly gearItems: Locator;
   readonly trainingItems: Locator;
   readonly saleItems: Locator;
-  readonly topCategory: Locator;
-  readonly bottomCategory: Locator;
+  readonly topsCategory: Locator;
+  readonly bottomsCategory: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -19,7 +19,7 @@ export class NavigationMenu {
     this.gearItems = page.getByRole("menuitem", { name: "Gear" });
     this.trainingItems = page.getByRole("menuitem", { name: "Training" });
     this.saleItems = page.getByRole("menuitem", { name: "Sale" });
-    this.topCategory = page.getByRole("menuitem", { name: "Tops" });
-    this.bottomCategory = page.getByRole("menuitem", { name: "Bottoms" });
+    this.topsCategory = page.getByRole("menuitem", { name: "Tops" });
+    this.bottomsCategory = page.getByRole("menuitem", { name: "Bottoms" });
   }
 }
