@@ -12,7 +12,7 @@ export class MainPage extends NavigationMenu {
     super(page);
     this.mainLogo = page.getByLabel("store logo");
     this.wishlistSideBlock = page.locator(".block-wishlist");
-    this.itemPrice = page.locator(".price-box .price-final_price");
+    this.itemPrice = page.locator('[data-price-type="finalPrice"]');
     this.addToWishlistIcon = page.getByLabel("Add to Wish List");
     this.itemsInWishListBlock = page
       .locator(".block-wishlist")
@@ -29,18 +29,25 @@ export class MainPage extends NavigationMenu {
     await this.page.locator(category).click();
   }
 
-  async selectItemByLowerPrice(): Promise<void> {
+  async selectItemByPrice(type: "low" | "high"): Promise<void> {
     const allPricesText = await this.itemPrice.allInnerTexts();
+    const prices = allPricesText.map((price) =>
+      parseInt(price.replace("$", ""))
+    );
+    let selectedIdx: number;
+    if (type === "low") {
+      const lowestPrice = Math.min(...prices);
+      selectedIdx = prices.indexOf(lowestPrice);
+    } else if (type === "high") {
+      const highestPrice = Math.max(...prices);
+      selectedIdx = prices.indexOf(highestPrice);
+    } else {
+      throw new Error('Invalid price type. Use "low" or "high".');
+    }
 
-    const prices = allPricesText.map((price) => parseInt(price.slice(11)));
-    const lowestPrice = Math.min(...prices);
-    const lowerPriceIdx = prices.indexOf(lowestPrice);
-
-    const lowestItemPrice = this.itemPrice.nth(lowerPriceIdx);
-    await lowestItemPrice
+    const selectedItemPrice = this.itemPrice.nth(selectedIdx);
+    await selectedItemPrice
       .hover()
-      .then(
-        async () => await this.addToWishlistIcon.nth(lowerPriceIdx).click()
-      );
+      .then(async () => await this.addToWishlistIcon.nth(selectedIdx).click());
   }
 }
