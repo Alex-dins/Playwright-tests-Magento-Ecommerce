@@ -11,7 +11,9 @@ export class LoginPage {
   constructor(page: Page) {
     this.page = page;
     this.emailInput = page.locator("id=email");
-    this.passwordInput = page.locator("id=pass");
+    this.passwordInput = page.getByRole("textbox", {
+      name: "Password",
+    });
     this.loginButton = page.getByRole("button", { name: "Sign In" });
     this.errorAlert = page.locator('[data-ui-id="message-error"]');
     this.errorRequiredLabel = page.locator("id=email-error");

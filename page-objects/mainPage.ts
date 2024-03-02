@@ -14,22 +14,33 @@ export class MainPage extends NavigationMenu {
     this.wishlistSideBlock = page.locator(".block-wishlist");
     this.itemPrice = page.locator('[data-price-type="finalPrice"]');
     this.addToWishlistIcon = page.getByLabel("Add to Wish List");
-    this.itemsInWishListBlock = page
-      .locator(".block-wishlist")
-      .filter({ has: page.locator("ol li") });
+    this.itemsInWishListBlock = page.locator(".block-wishlist ol li");
   }
 
   async isOnMainPage(): Promise<void> {
     await this.mainLogo.click();
   }
 
-  async chooseCategory(category: string): Promise<void> {
-    await this.womenItems.hover();
-    await this.topsCategory.hover();
-    await this.page.locator(category).click();
+  async chooseCategory(
+    category: "MEN" | "WOMEN",
+    type: "TOPS" | "BOTTOMS",
+    subcategory: string
+  ): Promise<void> {
+    category === "WOMEN"
+      ? await this.womenItems.hover()
+      : await this.menItems.hover();
+
+    type === "TOPS"
+      ? await this.topsCategory
+          .hover()
+          .then(async () => await this.page.locator(subcategory).click())
+      : await this.bottomsCategory
+          .hover()
+          .then(async () => await this.page.locator(subcategory).click());
   }
 
   async selectItemByPrice(type: "low" | "high"): Promise<void> {
+    await this.page.waitForTimeout(1000);
     const allPricesText = await this.itemPrice.allInnerTexts();
     const prices = allPricesText.map((price) =>
       parseInt(price.replace("$", ""))
