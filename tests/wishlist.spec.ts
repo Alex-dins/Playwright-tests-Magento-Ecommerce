@@ -3,12 +3,13 @@ import { LoginPage } from "../page-objects/loginPage";
 import { MainPage } from "../page-objects/mainPage";
 import { MyWishlistPage } from "../page-objects/myWishlistPage";
 import { EndpointMaps } from "../helper/endpointMaps";
-import { GEARS, MEN_CATEGORIES, WOMEN_CATEGORIES } from "../helper/categories";
+import { MEN_CATEGORIES, WOMEN_CATEGORIES } from "../helper/categories";
 import commons from "../test-data/commons.json";
 import alerts from "../test-data/alerts.json";
 
 test.describe("Testing My Wish List", () => {
   test.beforeEach(async ({ page }) => {
+    //Login into app
     const loginPage = new LoginPage(page);
     await page.goto(EndpointMaps.LOGIN);
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
@@ -18,7 +19,7 @@ test.describe("Testing My Wish List", () => {
     const mainPage = new MainPage(page);
     const mywishlistPage = new MyWishlistPage(page);
     await mainPage.isOnMainPage();
-    //Add item from women category
+    //Add item from women category by lower price
     await mainPage.chooseCategory(
       "WOMEN",
       "TOPS",
@@ -39,7 +40,7 @@ test.describe("Testing My Wish List", () => {
     );
     await expect(mainPage.itemsInWishListBlock).toHaveCount(1);
 
-    //Add item from men category
+    //Add item from men category by highest price
     await mainPage.chooseCategory(
       "MEN",
       "BOTTOMS",
@@ -58,7 +59,7 @@ test.describe("Testing My Wish List", () => {
     );
     await expect(mainPage.itemsInWishListBlock).toHaveCount(2);
 
-    //Remove product items
+    //Remove product items from wish list
     await mywishlistPage.removeFromWishlist(womenProductName);
     await mywishlistPage.removeFromWishlist(menProductName);
   });
