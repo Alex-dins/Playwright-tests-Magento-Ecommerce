@@ -11,7 +11,7 @@ export class LoginPage {
   constructor(page: Page) {
     this.page = page;
     this.emailInput = page.getByRole("textbox", {
-      name: "Emaail",
+      name: "Email",
     });
     this.passwordInput = page.getByRole("textbox", {
       name: "Password",
