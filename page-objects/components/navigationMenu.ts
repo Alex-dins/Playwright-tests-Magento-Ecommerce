@@ -1,8 +1,6 @@
 import { type Locator, type Page } from "@playwright/test";
-import { CompareItemPage } from "./compareItemsPage";
 
 export class NavigationMenu {
-  readonly compareItemPage: CompareItemPage;
   readonly page: Page;
   readonly newItems: Locator;
   readonly womenItems: Locator;
@@ -15,7 +13,6 @@ export class NavigationMenu {
 
   constructor(page: Page) {
     this.page = page;
-    this.compareItemPage = new CompareItemPage(page);
     this.newItems = page.getByRole("menuitem", { name: /What's New/ });
     this.womenItems = page.getByRole("menuitem", { name: /Women/ });
     this.menItems = page.getByRole("menuitem", { name: /Men/ });

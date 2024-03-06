@@ -27,7 +27,7 @@ test.describe("Testing My Wish List", () => {
     );
 
     await expect(page).toHaveURL(EndpointMaps.WOMEN_JACKETS);
-    await expect(mainPage.wishlistSideBlock).toContainText(
+    await expect(mainPage.sideBarMenu.wishlistSideBlock).toContainText(
       commons.EMPTY_WISH_LIST
     );
 
@@ -38,7 +38,7 @@ test.describe("Testing My Wish List", () => {
     await expect(mywishlistPage.successMessage).toHaveText(
       `${womenProductName} ${alerts.SUCCESSFULLY_ADDED_ITEM_TO_WISHLIST}`
     );
-    await expect(mainPage.itemsInWishListBlock).toHaveCount(1);
+    await expect(mainPage.sideBarMenu.itemsInWishListBlock).toHaveCount(1);
 
     //Add item from men category by highest price
     await mainPage.chooseClothesCategory(
@@ -57,7 +57,7 @@ test.describe("Testing My Wish List", () => {
     await expect(mywishlistPage.successMessage).toHaveText(
       `${menProductName} ${alerts.SUCCESSFULLY_ADDED_ITEM_TO_WISHLIST}`
     );
-    await expect(mainPage.itemsInWishListBlock).toHaveCount(2);
+    await expect(mainPage.sideBarMenu.itemsInWishListBlock).toHaveCount(2);
 
     //Remove product items from wish list
     await mywishlistPage.removeFromWishlist(womenProductName);

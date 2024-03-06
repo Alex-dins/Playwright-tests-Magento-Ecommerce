@@ -1,5 +1,5 @@
 import { type Locator, type Page } from "@playwright/test";
-import { NavigationMenu } from "./navigationMenu";
+import { NavigationMenu } from "./components/navigationMenu";
 
 export class MyWishlistPage extends NavigationMenu {
   readonly successMessage: Locator;
