@@ -20,7 +20,7 @@ test.describe("Testing My Wish List", () => {
     const mywishlistPage = new MyWishlistPage(page);
     await mainPage.isOnMainPage();
     //Add item from women category by lower price
-    await mainPage.chooseCategory(
+    await mainPage.chooseClothesCategory(
       "WOMEN",
       "TOPS",
       WOMEN_CATEGORIES.tops.jackets
@@ -41,7 +41,7 @@ test.describe("Testing My Wish List", () => {
     await expect(mainPage.itemsInWishListBlock).toHaveCount(1);
 
     //Add item from men category by highest price
-    await mainPage.chooseCategory(
+    await mainPage.chooseClothesCategory(
       "MEN",
       "BOTTOMS",
       MEN_CATEGORIES.bottoms.pants

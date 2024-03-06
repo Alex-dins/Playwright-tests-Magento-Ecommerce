@@ -4,9 +4,11 @@ import { NavigationMenu } from "./navigationMenu";
 export class MainPage extends NavigationMenu {
   readonly mainLogo: Locator;
   readonly wishlistSideBlock: Locator;
+  readonly compareProductsSideBlock: Locator;
   readonly itemsInWishListBlock: Locator;
   readonly itemPrice: Locator;
   readonly addToWishlistIcon: Locator;
+  readonly numberItemsOnPage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -15,13 +17,14 @@ export class MainPage extends NavigationMenu {
     this.itemPrice = page.locator('[data-price-type="finalPrice"]');
     this.addToWishlistIcon = page.getByLabel("Add to Wish List");
     this.itemsInWishListBlock = page.locator(".block-wishlist ol li");
+    this.numberItemsOnPage = page.locator("#limiter").nth(1);
   }
 
   async isOnMainPage(): Promise<void> {
     await this.mainLogo.click();
   }
 
-  async chooseCategory(
+  async chooseClothesCategory(
     category: "MEN" | "WOMEN",
     type: "TOPS" | "BOTTOMS",
     subcategory: string
@@ -37,6 +40,12 @@ export class MainPage extends NavigationMenu {
       : await this.bottomsCategory
           .hover()
           .then(async () => await this.page.locator(subcategory).click());
+  }
+
+  async chooseGearCategory(subcategory: string): Promise<void> {
+    await this.gearItems
+      .hover()
+      .then(async () => await this.page.locator(subcategory).click());
   }
 
   async selectItemByPrice(type: "low" | "high"): Promise<void> {
