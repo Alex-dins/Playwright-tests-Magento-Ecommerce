@@ -9,9 +9,6 @@ export class MainPage {
   readonly navigationMenu: NavigationMenu;
   readonly itemCard: ItemCard;
   readonly mainLogo: Locator;
-  readonly compareProductsSideBlock: Locator;
-  // readonly itemPrice: Locator; // move to itemCard
-  // readonly addToWishlistIcon: Locator; // move to itemCard
   readonly numberItemsOnPage: Locator;
 
   constructor(page: Page) {
@@ -20,8 +17,6 @@ export class MainPage {
     this.navigationMenu = new NavigationMenu(page);
     this.itemCard = new ItemCard(page);
     this.mainLogo = page.getByLabel("store logo");
-    // this.itemPrice = page.locator('[data-price-type="finalPrice"]'); // move to itemCard
-    // this.addToWishlistIcon = page.getByLabel("Add to Wish List"); // move to itemCard
     this.numberItemsOnPage = page.locator("#limiter").nth(1);
   }
 
@@ -77,5 +72,11 @@ export class MainPage {
         async () =>
           await this.itemCard.addToWishlistIcon.nth(selectedIdx).click()
       );
+  }
+
+  async showMoreProductsOnPage(number: string): Promise<void> {
+    await this.numberItemsOnPage.scrollIntoViewIfNeeded();
+    await this.numberItemsOnPage.selectOption(number);
+    await this.page.waitForLoadState('domcontentloaded')
   }
 }

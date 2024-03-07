@@ -34,7 +34,8 @@ test.describe("Testing My Wish List", () => {
     await mainPage.selectItemByPrice("low");
 
     await expect(page).toHaveURL(EndpointMaps.WISHLIST);
-    const womenProductName = await mywishlistPage.productItemName.innerText();
+    const womenProductName =
+      await mywishlistPage.itemCard.productItemName.innerText();
     await expect(mywishlistPage.successMessage).toHaveText(
       `${womenProductName} ${alerts.SUCCESSFULLY_ADDED_ITEM_TO_WISHLIST}`
     );
@@ -51,7 +52,7 @@ test.describe("Testing My Wish List", () => {
     await mainPage.selectItemByPrice("high");
 
     await expect(page).toHaveURL(EndpointMaps.WISHLIST);
-    const menProductName = await mywishlistPage.productItemName
+    const menProductName = await mywishlistPage.itemCard.productItemName
       .nth(1)
       .innerText();
     await expect(mywishlistPage.successMessage).toHaveText(

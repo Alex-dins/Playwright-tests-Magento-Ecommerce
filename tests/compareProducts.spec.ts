@@ -19,7 +19,9 @@ test.describe("Testing compare items", () => {
     await mainPage.isOnMainPage();
 
     await mainPage.chooseGearCategory(GEARS.bags);
-    await mainPage.numberItemsOnPage.scrollIntoViewIfNeeded();
-    await mainPage.numberItemsOnPage.selectOption("24");
+
+    await mainPage.showMoreProductsOnPage("24");
+
+    await expect(mainPage.itemCard.itemContainer).toHaveCount(14);
   });
 });
