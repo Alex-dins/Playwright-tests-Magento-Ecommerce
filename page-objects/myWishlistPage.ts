@@ -7,8 +7,6 @@ export class MyWishlistPage {
   readonly itemCard: ItemCard;
   readonly navigationMenu: NavigationMenu;
   readonly successMessage: Locator;
-  // readonly productItemName: Locator;  // move to itemCard
-  // readonly removeButton: Locator; // move to itemCard
   readonly emptyMessage: Locator;
 
   constructor(page: Page) {
@@ -16,10 +14,6 @@ export class MyWishlistPage {
     this.itemCard = new ItemCard(page);
     this.navigationMenu = new NavigationMenu(page);
     this.successMessage = page.locator("[data-ui-id=message-success]");
-    // this.productItemName = page.locator(
-    //   ".products-grid .product-item-info .product-item-name"
-    // );  // move to itemCard
-    // this.removeButton = page.getByRole("link", { name: /Remove item/ });  // move to itemCard
     this.emptyMessage = page.locator("#wishlist-view-form").locator(".empty");
   }
 

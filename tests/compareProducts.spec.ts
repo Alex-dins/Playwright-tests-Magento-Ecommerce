@@ -17,11 +17,19 @@ test.describe("Testing compare items", () => {
   test("Add items to campare and delete them", async ({ page }) => {
     const mainPage = new MainPage(page);
     await mainPage.isOnMainPage();
-
+    //Select bags products
     await mainPage.chooseGearCategory(GEARS.bags);
-
     await mainPage.showMoreProductsOnPage("24");
 
-    await expect(mainPage.itemCard.itemContainer).toHaveCount(14);
+    await expect(mainPage.productItems).toHaveCount(14);
+
+    await mainPage.chooseBagsByName("Fusion Backpack");
+
+    await expect(mainPage.successMessage).toContainText(
+      alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
+    );
+    await expect(mainPage.sideBarMenu.itemsInCompareProductBlock).toHaveCount(
+      1
+    );
   });
 });

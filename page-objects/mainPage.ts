@@ -10,6 +10,8 @@ export class MainPage {
   readonly itemCard: ItemCard;
   readonly mainLogo: Locator;
   readonly numberItemsOnPage: Locator;
+  readonly productItems: Locator;
+  readonly successMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -17,7 +19,9 @@ export class MainPage {
     this.navigationMenu = new NavigationMenu(page);
     this.itemCard = new ItemCard(page);
     this.mainLogo = page.getByLabel("store logo");
-    this.numberItemsOnPage = page.locator("#limiter").nth(1);
+    this.numberItemsOnPage = page.locator('[data-role="limiter"]').nth(1);
+    this.productItems = page.locator(".products-grid").locator("ol li");
+    this.successMessage = page.locator("[data-ui-id=message-success]");
   }
 
   async isOnMainPage(): Promise<void> {
@@ -75,8 +79,15 @@ export class MainPage {
   }
 
   async showMoreProductsOnPage(number: string): Promise<void> {
+    await this.numberItemsOnPage.waitFor();
     await this.numberItemsOnPage.scrollIntoViewIfNeeded();
     await this.numberItemsOnPage.selectOption(number);
-    await this.page.waitForLoadState('domcontentloaded')
+  }
+
+  async chooseBagsByName(name: string): Promise<void> {
+    const allItems = await this.itemCard.productItemName.allInnerTexts();
+    const selectedIdx = allItems.findIndex((el) => el === name);
+    await this.itemCard.productItemName.getByText(name).hover();
+    await this.itemCard.addToCompareIcon.nth(selectedIdx).click();
   }
 }

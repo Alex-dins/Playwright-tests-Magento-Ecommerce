@@ -3,5 +3,6 @@
   "ERROR_EMPTY_FIELD": "A login and a password are required.",
   "SUCCESSFULLY_ADDED_ITEM_TO_WISHLIST": "has been added to your Wish List. Click here to continue shopping.",
   "SUCCESSFULLY_REMOVED_ITEM_FROM_WISHLIST": "has been removed from your Wish List.",
-  "EMPTY_WISHLIST": "You have no items in your wish list."
+  "EMPTY_WISHLIST": "You have no items in your wish list.",
+  "SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST": "You added product"
 }

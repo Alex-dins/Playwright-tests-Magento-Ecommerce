@@ -11,7 +11,7 @@ export class SideBarMenu {
     this.page = page;
     this.wishlistSideBlock = page.locator(".block-wishlist");
     this.itemsInWishListBlock = this.wishlistSideBlock.locator("ol li");
-    this.compareProductsBlock = page.locator(".block block-compare");
+    this.compareProductsBlock = page.locator(".block-compare");
     this.itemsInCompareProductBlock =
       this.compareProductsBlock.locator("ol li");
   }
