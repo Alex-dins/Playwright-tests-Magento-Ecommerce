@@ -9,7 +9,8 @@ export class MainPage {
   readonly navigationMenu: NavigationMenu;
   readonly itemCard: ItemCard;
   readonly mainLogo: Locator;
-  readonly numberItemsOnPage: Locator;
+  readonly showOption: Locator;
+  readonly sortOption: Locator;
   readonly productItems: Locator;
   readonly successMessage: Locator;
 
@@ -19,7 +20,8 @@ export class MainPage {
     this.navigationMenu = new NavigationMenu(page);
     this.itemCard = new ItemCard(page);
     this.mainLogo = page.getByLabel("store logo");
-    this.numberItemsOnPage = page.locator('[data-role="limiter"]').nth(1);
+    this.showOption = page.locator('[data-role="limiter"]').nth(1);
+    this.sortOption = page.getByLabel("Sort By");
     this.productItems = page.locator(".products-grid").locator("ol li");
     this.successMessage = page.locator("[data-ui-id=message-success]");
   }
@@ -79,9 +81,9 @@ export class MainPage {
   }
 
   async showMoreProductsOnPage(number: string): Promise<void> {
-    await this.numberItemsOnPage.waitFor();
-    await this.numberItemsOnPage.scrollIntoViewIfNeeded();
-    await this.numberItemsOnPage.selectOption(number);
+    await this.showOption.waitFor();
+    await this.showOption.scrollIntoViewIfNeeded();
+    await this.showOption.selectOption(number);
   }
 
   async chooseBagsByName(name: string): Promise<void> {
