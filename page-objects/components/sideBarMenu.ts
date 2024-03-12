@@ -6,6 +6,7 @@ export class SideBarMenu {
   readonly itemsInWishListBlock: Locator;
   readonly compareProductsBlock: Locator;
   readonly itemsInCompareProductBlock: Locator;
+  readonly compareButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -14,5 +15,9 @@ export class SideBarMenu {
     this.compareProductsBlock = page.locator(".block-compare");
     this.itemsInCompareProductBlock =
       this.compareProductsBlock.locator("ol li");
+    this.compareButton = page.getByRole("link", {
+      name: "Compare",
+      exact: true,
+    });
   }
 }

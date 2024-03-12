@@ -13,6 +13,7 @@ export class MainPage {
   readonly sortOption: Locator;
   readonly productItems: Locator;
   readonly successMessage: Locator;
+  readonly setDescendingOrder: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -24,6 +25,9 @@ export class MainPage {
     this.sortOption = page.getByLabel("Sort By");
     this.productItems = page.locator(".products-grid").locator("ol li");
     this.successMessage = page.locator("[data-ui-id=message-success]");
+    this.setDescendingOrder = page.getByRole("link", {
+      name: /Set Descending Direction/,
+    });
   }
 
   async isOnMainPage(): Promise<void> {
@@ -84,6 +88,7 @@ export class MainPage {
     await this.showOption.waitFor();
     await this.showOption.scrollIntoViewIfNeeded();
     await this.showOption.selectOption(number);
+    await this.page.waitForLoadState("load");
   }
 
   async chooseBagsByName(name: string): Promise<void> {

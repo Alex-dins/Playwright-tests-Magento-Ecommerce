@@ -8,7 +8,7 @@ import alerts from "../test-data/alerts.json";
 
 test.describe("Testing compare items", () => {
   test.beforeEach(async ({ page }) => {
-    //Login into app
+    //Login to app
     const loginPage = new LoginPage(page);
     await page.goto(EndpointMaps.LOGIN);
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
@@ -16,7 +16,11 @@ test.describe("Testing compare items", () => {
 
   test("Add items to campare and delete them", async ({ page }) => {
     const mainPage = new MainPage(page);
-    const bagsToCompare = ["Fusion Backpack", "Compete Track Tote"];
+    const bagsToCompare = [
+      "Fusion Backpack",
+      "Compete Track Tote",
+      "Impulse Duffle",
+    ];
     await mainPage.isOnMainPage();
     //Select bags products
     await mainPage.chooseGearCategory(GEARS.bags);
@@ -37,7 +41,7 @@ test.describe("Testing compare items", () => {
     await expect(mainPage.sideBarMenu.itemsInCompareProductBlock).toHaveCount(
       1
     );
-
+    //Change sort option on the page
     await mainPage.sortOption.selectOption("Product Name");
     await expect(mainPage.itemCard.productItemName.first()).toContainText(
       bagsToCompare[1]
@@ -45,8 +49,40 @@ test.describe("Testing compare items", () => {
     //Choose second product
     await mainPage.chooseBagsByName(bagsToCompare[1]);
 
+    await expect(mainPage.successMessage).toContainText(
+      alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
+    );
     await expect(mainPage.sideBarMenu.itemsInCompareProductBlock).toHaveCount(
       2
     );
+
+    //Change sort option on the page by price and descending order
+    await mainPage.sortOption.selectOption("Price");
+    await page.waitForLoadState("load");
+    await mainPage.setDescendingOrder.click();
+
+    await expect(mainPage.itemCard.productItemName.first()).toContainText(
+      bagsToCompare[2]
+    );
+    //Choose third product
+    await mainPage.chooseBagsByName(bagsToCompare[2]);
+
+    await expect(mainPage.successMessage).toContainText(
+      alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
+    );
+    await expect(mainPage.sideBarMenu.itemsInCompareProductBlock).toHaveCount(
+      3
+    );
+    await mainPage.sideBarMenu.compareButton.click();
+
+    await expect(page).toHaveURL(EndpointMaps.COMPARE);
+
+    const compareScreenshot = await page
+      .locator('[id="product-comparison"]')
+      .screenshot({ path: "screenshots/compare-product.png" });
+    await page.waitForLoadState("load");
+    await expect(compareScreenshot).toMatchSnapshot({
+      name: "compare-product.png",
+    });
   });
 });
