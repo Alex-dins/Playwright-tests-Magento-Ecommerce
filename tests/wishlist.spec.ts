@@ -26,14 +26,14 @@ test.describe("Testing My Wish List", () => {
       WOMEN_CATEGORIES.tops.jackets
     );
 
-    await expect(page).toHaveURL(EndpointMaps.WOMEN_JACKETS);
+    await expect(mainPage.page).toHaveURL(EndpointMaps.WOMEN_JACKETS);
     await expect(mainPage.sideBarMenu.wishlistSideBlock).toContainText(
       commons.EMPTY_WISH_LIST
     );
 
     await mainPage.selectItemByPrice("low");
 
-    await expect(page).toHaveURL(EndpointMaps.WISHLIST);
+    await expect(mywishlistPage.page).toHaveURL(EndpointMaps.WISHLIST);
     const womenProductName =
       await mywishlistPage.itemCard.productItemName.innerText();
     await expect(mywishlistPage.successMessage).toHaveText(
@@ -47,11 +47,11 @@ test.describe("Testing My Wish List", () => {
       "BOTTOMS",
       MEN_CATEGORIES.bottoms.pants
     );
-    await expect(page).toHaveURL(EndpointMaps.MEN_PANTS);
+    await expect(mainPage.page).toHaveURL(EndpointMaps.MEN_PANTS);
 
     await mainPage.selectItemByPrice("high");
 
-    await expect(page).toHaveURL(EndpointMaps.WISHLIST);
+    await expect(mywishlistPage.page).toHaveURL(EndpointMaps.WISHLIST);
     const menProductName = await mywishlistPage.itemCard.productItemName
       .nth(1)
       .innerText();

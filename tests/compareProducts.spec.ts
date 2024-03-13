@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../page-objects/loginPage";
 import { MainPage } from "../page-objects/mainPage";
+import { CompareItemPage } from "../page-objects/compareItemsPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { GEARS } from "../helper/categories";
 import commons from "../test-data/commons.json";
@@ -16,6 +17,7 @@ test.describe("Testing compare items", () => {
 
   test("Add items to campare and delete them", async ({ page }) => {
     const mainPage = new MainPage(page);
+    const compareItemsPage = new CompareItemPage(page);
     const bagsToCompare = [
       "Fusion Backpack",
       "Compete Track Tote",
@@ -75,7 +77,7 @@ test.describe("Testing compare items", () => {
     );
     await mainPage.sideBarMenu.compareButton.click();
 
-    await expect(page).toHaveURL(EndpointMaps.COMPARE);
+    await expect(compareItemsPage.page).toHaveURL(EndpointMaps.COMPARE);
 
     const compareScreenshot = await page
       .locator('[id="product-comparison"]')
