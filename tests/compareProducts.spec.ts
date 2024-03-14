@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../page-objects/loginPage";
 import { MainPage } from "../page-objects/mainPage";
-import { CompareItemPage } from "../page-objects/compareItemsPage";
+import { CompareItemPage } from "../page-objects/compareProductsPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { GEARS } from "../helper/categories";
 import commons from "../test-data/commons.json";
@@ -23,7 +23,10 @@ test.describe("Testing compare items", () => {
       "Compete Track Tote",
       "Impulse Duffle",
     ];
+
+    //Navigate to the main page
     await mainPage.isOnMainPage();
+
     //Select bags products
     await mainPage.chooseGearCategory(GEARS.bags);
     await expect(mainPage.sideBarMenu.compareProductsBlock).toContainText(
@@ -75,16 +78,13 @@ test.describe("Testing compare items", () => {
     await expect(mainPage.sideBarMenu.itemsInCompareProductBlock).toHaveCount(
       3
     );
+
+    //Navigate to the compare page
     await mainPage.sideBarMenu.compareButton.click();
 
     await expect(compareItemsPage.page).toHaveURL(EndpointMaps.COMPARE);
 
-    const compareScreenshot = await page
-      .locator('[id="product-comparison"]')
-      .screenshot({ path: "screenshots/compare-product.png" });
-    await page.waitForLoadState("load");
-    await expect(compareScreenshot).toMatchSnapshot({
-      name: "compare-product.png",
-    });
+    //Check if all products are added and verify with a snapshot
+    await compareItemsPage.visualComparisonOfScreenshots();
   });
 });
