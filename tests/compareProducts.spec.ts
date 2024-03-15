@@ -53,6 +53,7 @@ test.describe("Testing compare items", () => {
     );
     //Choose second product
     await mainPage.chooseBagsByName(bagsToCompare[1]);
+    await page.waitForLoadState("load");
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
@@ -86,5 +87,8 @@ test.describe("Testing compare items", () => {
 
     //Check if all products are added and verify with a snapshot
     await compareItemsPage.visualComparisonOfScreenshots();
+
+    //Delete all products from compare list
+    await compareItemsPage.removeAllProducts();
   });
 });
