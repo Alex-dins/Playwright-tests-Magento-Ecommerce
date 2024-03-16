@@ -64,7 +64,7 @@ test.describe("Testing compare items", () => {
 
     //Change sort option on the page by price and descending order
     await mainPage.sortOption.selectOption("Price");
-    await page.waitForLoadState("load");
+    // await page.waitForLoadState("load");
     await mainPage.setDescendingOrder.click();
 
     await expect(mainPage.itemCard.productItemName.first()).toContainText(

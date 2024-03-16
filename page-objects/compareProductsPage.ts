@@ -16,11 +16,8 @@ export class CompareProductsPage {
   }
 
   async visualComparisonOfScreenshots(): Promise<void> {
-    const compareScreenshot = await this.productsToCompare.screenshot({
-      path: "screenshots/compare-product.png",
-    });
-    await this.page.waitForLoadState("load");
-    await expect(compareScreenshot).toMatchSnapshot();
+    const addedProducts = await this.productsToCompare;
+    await expect(addedProducts).toHaveScreenshot("compare-product.png");
   }
 
   async removeAllProducts(): Promise<void> {
