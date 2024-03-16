@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../page-objects/loginPage";
 import { MainPage } from "../page-objects/mainPage";
-import { CompareItemPage } from "../page-objects/compareProductsPage";
+import { CompareProductsPage } from "../page-objects/compareProductsPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { GEARS } from "../helper/categories";
 import commons from "../test-data/commons.json";
@@ -17,7 +17,7 @@ test.describe("Testing compare items", () => {
 
   test("Add items to campare and delete them", async ({ page }) => {
     const mainPage = new MainPage(page);
-    const compareItemsPage = new CompareItemPage(page);
+    const compareProductsPage = new CompareProductsPage(page);
     const bagsToCompare = [
       "Fusion Backpack",
       "Compete Track Tote",
@@ -82,13 +82,17 @@ test.describe("Testing compare items", () => {
 
     //Navigate to the compare page
     await mainPage.sideBarMenu.compareButton.click();
-
-    await expect(compareItemsPage.page).toHaveURL(EndpointMaps.COMPARE);
+    await expect(compareProductsPage.page).toHaveURL(EndpointMaps.COMPARE);
 
     //Check if all products are added and verify with a snapshot
-    await compareItemsPage.visualComparisonOfScreenshots();
+    await compareProductsPage.visualComparisonOfScreenshots();
 
     //Delete all products from compare list
-    await compareItemsPage.removeAllProducts();
+    await compareProductsPage.removeAllProducts();
+
+    //Check if message containt expected text
+    await expect(compareProductsPage.emptyMessage).toContainText(
+      commons.EMPTY_COMPARE_LIST
+    );
   });
 });

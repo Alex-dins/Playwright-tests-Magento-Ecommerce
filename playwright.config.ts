@@ -10,9 +10,9 @@ require("dotenv").config();
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 50000,
+  timeout: 30000,
   expect: {
-    timeout: 30000,
+    timeout: 10000,
   },
   testDir: "./tests",
   /* Run tests in files in parallel */

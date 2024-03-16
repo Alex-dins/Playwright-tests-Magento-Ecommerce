@@ -1,4 +1,5 @@
 import { type Locator, type Page } from "@playwright/test";
+import { numberConverter } from "../helper/utils/functions";
 import { NavigationMenu } from "./components/navigationMenu";
 import { SideBarMenu } from "./components/sideBarMenu";
 import { ItemCard } from "./components/itemCard";
@@ -61,8 +62,9 @@ export class MainPage {
   async selectItemByPrice(type: "low" | "high"): Promise<void> {
     await this.page.waitForTimeout(1000);
     const allPricesText = await this.itemCard.itemPrice.allInnerTexts();
-    const prices = allPricesText.map((price) =>
-      parseInt(price.replace("$", ""))
+    const prices = allPricesText.map(
+      (price) => numberConverter(price)
+      // parseInt(price.replace("$", ""))
     );
     let selectedIdx: number;
     if (type === "low") {
