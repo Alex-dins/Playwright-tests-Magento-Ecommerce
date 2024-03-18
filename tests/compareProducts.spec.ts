@@ -90,7 +90,10 @@ test.describe("Testing compare items", () => {
     //Delete all products from compare list
     await compareProductsPage.removeAllProducts();
 
-    //Check if message containt expected text
+    //Check if messages containt expected text
+    await expect(compareProductsPage.successMessage).toContainText(
+      alerts.SUCCESSFULLY_REMOVED_ITEM_FROM_COMPARELIST
+    );
     await expect(compareProductsPage.emptyMessage).toContainText(
       commons.EMPTY_COMPARE_LIST
     );

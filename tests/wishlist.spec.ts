@@ -73,6 +73,7 @@ test.describe("Testing My Wish List", () => {
       `${menProductName} ${alerts.SUCCESSFULLY_REMOVED_ITEM_FROM_WISHLIST}`
     );
 
+    
     await expect(mywishlistPage.emptyMessage).toHaveText(alerts.EMPTY_WISHLIST);
   });
 });

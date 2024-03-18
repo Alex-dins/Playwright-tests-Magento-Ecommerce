@@ -6,6 +6,7 @@ export class CompareProductsPage {
   readonly removeProductButton: Locator;
   readonly confirmPopupButton: Locator;
   readonly emptyMessage: Locator;
+  readonly successMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -13,6 +14,7 @@ export class CompareProductsPage {
     this.removeProductButton = page.locator("td").getByTitle("Remove Product");
     this.confirmPopupButton = page.getByRole("button", { name: "OK" });
     this.emptyMessage = page.locator(".empty").locator("div");
+    this.successMessage = page.locator('[data-ui-id="message-success"]');
   }
 
   async visualComparisonOfScreenshots(): Promise<void> {
