@@ -26,9 +26,11 @@ export class MainPage {
     this.sortOption = page.getByLabel("Sort By");
     this.productItems = page.locator(".products-grid").locator("ol li");
     this.successMessage = page.locator("[data-ui-id=message-success]");
-    this.setDescendingOrder = page.getByRole("link", {
-      name: /Set Descending Direction/,
-    });
+    this.setDescendingOrder = page.locator(".sorter-action").first();
+    // .locator('[data-value="desc"]');
+    // this.setDescendingOrder = page.locator(".sorter-action").getByRole("link", {
+    //   name: /Set Descending Direction/,
+    // });
   }
 
   async isOnMainPage(): Promise<void> {
@@ -62,10 +64,7 @@ export class MainPage {
   async selectItemByPrice(type: "low" | "high"): Promise<void> {
     await this.page.waitForTimeout(1000);
     const allPricesText = await this.itemCard.itemPrice.allInnerTexts();
-    const prices = allPricesText.map(
-      (price) => numberConverter(price)
-      // parseInt(price.replace("$", ""))
-    );
+    const prices = allPricesText.map((price) => numberConverter(price));
     let selectedIdx: number;
     if (type === "low") {
       const lowestPrice = Math.min(...prices);
@@ -93,10 +92,14 @@ export class MainPage {
     await this.page.waitForLoadState("load");
   }
 
-  async chooseBagsByName(name: string): Promise<void> {
+  async chooseBagsByName(name: string, addTo: Locator): Promise<void> {
     const allItems = await this.itemCard.productItemName.allInnerTexts();
     const selectedIdx = allItems.findIndex((el) => el === name);
     await this.itemCard.productItemName.getByText(name).hover();
-    await this.itemCard.addToCompareIcon.nth(selectedIdx).click();
+    if (addTo === this.itemCard.addToCompareIcon) {
+      await this.itemCard.addToCompareIcon.nth(selectedIdx).click();
+    } else if (addTo === this.itemCard.addToWishlistIcon) {
+      await this.itemCard.addToWishlistIcon.nth(selectedIdx).click();
+    }
   }
 }

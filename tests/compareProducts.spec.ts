@@ -18,6 +18,7 @@ test.describe("Testing compare items", () => {
   test("Add items to campare and delete them", async ({ page }) => {
     const mainPage = new MainPage(page);
     const compareProductsPage = new CompareProductsPage(page);
+    const addToCompareButton = mainPage.itemCard.addToCompareIcon;
     const bagsToCompare = [
       "Fusion Backpack",
       "Compete Track Tote",
@@ -38,7 +39,7 @@ test.describe("Testing compare items", () => {
     await expect(mainPage.productItems).toHaveCount(14);
 
     //Choose first product
-    await mainPage.chooseBagsByName(bagsToCompare[0]);
+    await mainPage.chooseBagsByName(bagsToCompare[0], addToCompareButton);
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
@@ -52,7 +53,7 @@ test.describe("Testing compare items", () => {
       bagsToCompare[1]
     );
     //Choose second product
-    await mainPage.chooseBagsByName(bagsToCompare[1]);
+    await mainPage.chooseBagsByName(bagsToCompare[1], addToCompareButton);
     await page.waitForLoadState("load");
 
     await expect(mainPage.successMessage).toContainText(
@@ -64,14 +65,14 @@ test.describe("Testing compare items", () => {
 
     //Change sort option on the page by price and descending order
     await mainPage.sortOption.selectOption("Price");
-    // await page.waitForLoadState("load");
-    await mainPage.setDescendingOrder.click();
+    await page.waitForLoadState("load");
+    await mainPage.setDescendingOrder.dblclick();
 
     await expect(mainPage.itemCard.productItemName.first()).toContainText(
       bagsToCompare[2]
     );
     //Choose third product
-    await mainPage.chooseBagsByName(bagsToCompare[2]);
+    await mainPage.chooseBagsByName(bagsToCompare[2], addToCompareButton);
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
