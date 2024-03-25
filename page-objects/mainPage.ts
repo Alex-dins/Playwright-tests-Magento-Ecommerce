@@ -102,4 +102,23 @@ export class MainPage {
       await this.itemCard.addToWishlistIcon.nth(selectedIdx).click();
     }
   }
+
+  async chooseProductToReview(
+    type: "withReview" | "withoutReview"
+  ): Promise<void> {
+    const allProducts = await this.page.locator(".product-item").all();
+
+    for (const item of allProducts) {
+      const hasReviewBlock =
+        (await item.locator(this.itemCard.reviewBlock).count()) > 0;
+
+      if (hasReviewBlock && type === "withReview") {
+        await item.locator(this.itemCard.itemImage).click();
+        break;
+      } else if (!hasReviewBlock && type === "withoutReview") {
+        await item.locator(this.itemCard.itemImage).click();
+        break;
+      }
+    }
+  }
 }

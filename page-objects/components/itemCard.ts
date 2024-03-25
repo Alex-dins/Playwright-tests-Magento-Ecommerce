@@ -7,6 +7,8 @@ export class ItemCard {
   readonly productItemName: Locator;
   readonly removeButton: Locator;
   readonly addToCompareIcon: Locator;
+  readonly reviewBlock: Locator;
+  readonly itemImage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -17,5 +19,7 @@ export class ItemCard {
       .locator(".product-item-name");
     this.removeButton = page.getByRole("link", { name: /Remove item/ });
     this.addToCompareIcon = page.getByLabel("Add to Compare");
+    this.reviewBlock = page.locator(".product-reviews-summary");
+    this.itemImage = page.locator(".product-image-photo");
   }
 }
