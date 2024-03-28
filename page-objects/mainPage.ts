@@ -15,6 +15,7 @@ export class MainPage {
   readonly productItems: Locator;
   readonly successMessage: Locator;
   readonly setDescendingOrder: Locator;
+  readonly productItem: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -27,10 +28,7 @@ export class MainPage {
     this.productItems = page.locator(".products-grid").locator("ol li");
     this.successMessage = page.locator("[data-ui-id=message-success]");
     this.setDescendingOrder = page.locator(".sorter-action").first();
-    // .locator('[data-value="desc"]');
-    // this.setDescendingOrder = page.locator(".sorter-action").getByRole("link", {
-    //   name: /Set Descending Direction/,
-    // });
+    this.productItem = page.locator(".product-item");
   }
 
   async isOnMainPage(): Promise<void> {
@@ -106,7 +104,7 @@ export class MainPage {
   async chooseProductToReview(
     type: "withReview" | "withoutReview"
   ): Promise<void> {
-    const allProducts = await this.page.locator(".product-item").all();
+    const allProducts = await this.productItem.all();
 
     for (const item of allProducts) {
       const hasReviewBlock =
