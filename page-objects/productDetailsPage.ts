@@ -4,6 +4,7 @@ export class ProductDetailsPage {
   readonly page: Page;
   readonly productName: Locator;
   readonly addFirstReviewButton: Locator;
+  readonly nicknameInput: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -11,5 +12,6 @@ export class ProductDetailsPage {
     this.addFirstReviewButton = page.getByRole("link", {
       name: "Be the first to review this product",
     });
+    this.nicknameInput = page.locator("#nickname_field");
   }
 }

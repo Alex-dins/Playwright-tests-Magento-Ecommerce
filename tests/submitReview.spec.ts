@@ -38,5 +38,6 @@ test.describe("Submitting a review", () => {
     await expect(productDetailsPage.productName).toBeVisible();
 
     await productDetailsPage.addFirstReviewButton.click();
+    
   });
 });
