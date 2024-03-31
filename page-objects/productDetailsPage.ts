@@ -8,6 +8,7 @@ export class ProductDetailsPage {
   readonly summaryInput: Locator;
   readonly reviewInput: Locator;
   readonly submitButton: Locator;
+  readonly successMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -18,28 +19,18 @@ export class ProductDetailsPage {
     this.nicknameInput = page.locator("#nickname_field");
     this.summaryInput = page.locator("#summary_field");
     this.reviewInput = page.locator("#review_field");
-    this.submitButton = page.getByRole("button", { name: "Submit Review" });
+    this.submitButton = page.getByText("Submit Review");
+    this.successMessage = page.locator("[data-ui-id=message-success]");
   }
 
   async submitReview(
-    stars: string,
+    // stars: string,
     nickname: string,
     summary: string,
     review: string
   ): Promise<void> {
-    // await this.page
-    //   .locator(".review-control-vote")
-    //   .locator("#Rating_5_label")
-    //   .click({ force: true, position: { x: 56, y: 269 } });
-    // console.log(
-    //   await this.page
-    //     .getByLabel(stars)
-    //     // .locator(".review-control-vote")
-    //     // .locator("#Rating_5_label")
-    //     .boundingBox()
-    // );
-    const ratings = this.page.getByLabel(stars);
-    // .locator("#Rating_5_label")
+    const ratings = this.page.getByLabel("5 stars");
+
     const box = await ratings.boundingBox();
     const x = box!.x + box!.width / 2;
     const y = box!.y + box!.height / 2;

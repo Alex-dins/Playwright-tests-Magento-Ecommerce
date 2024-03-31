@@ -5,6 +5,7 @@ import { ProductDetailsPage } from "../page-objects/productDetailsPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { WOMEN_CATEGORIES } from "../helper/categories";
 import dataForReview from "../test-data/dataForReview.json";
+import alers from "../test-data/alerts.json";
 
 test.describe("Submitting a review", () => {
   test.beforeEach(async ({ page }) => {
@@ -38,15 +39,25 @@ test.describe("Submitting a review", () => {
     //After redirected to the product details page check if name is visible
     await expect(productDetailsPage.productName).toBeVisible();
 
-    await productDetailsPage.addFirstReviewButton.waitFor();
-    await productDetailsPage.addFirstReviewButton.click();
+    await productDetailsPage.addFirstReviewButton.click({
+      timeout: 2000,
+      force: true,
+    });
 
     await productDetailsPage.page.locator("#reviews").scrollIntoViewIfNeeded();
     await productDetailsPage.submitReview(
-      dataForReview.STARS[5],
+      //   dataForReview.STARS[5],
       dataForReview.NICKNAME,
       dataForReview.SUMMARY,
       dataForReview.REVIEW
+    );
+
+    //Submit the review
+    await productDetailsPage.submitButton.click();
+
+    //Check if messages containt expected text
+    await expect(productDetailsPage.successMessage).toContainText(
+      alers.SUCCESSFULLY_SUBMITTED_REVIEW
     );
   });
 });
