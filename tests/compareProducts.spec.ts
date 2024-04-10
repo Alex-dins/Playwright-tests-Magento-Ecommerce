@@ -11,7 +11,9 @@ test.describe("Testing compare items", () => {
   test.beforeEach(async ({ page }) => {
     //Login to app
     const loginPage = new LoginPage(page);
+    const mainPage = new MainPage(page);
     await page.goto(EndpointMaps.LOGIN);
+    await mainPage.handlingConsentModal();
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
   });
 
@@ -65,8 +67,8 @@ test.describe("Testing compare items", () => {
 
     //Change sort option on the page by price and descending order
     await mainPage.sortOption.selectOption("Price");
-    await page.waitForLoadState("load");
-    await mainPage.setDescendingOrder.dblclick();
+    await page.waitForLoadState("domcontentloaded");
+    await mainPage.setDescendingOrder.click({ clickCount: 2, force: true });
 
     await expect(mainPage.itemCard.productItemName.first()).toContainText(
       bagsToCompare[2]

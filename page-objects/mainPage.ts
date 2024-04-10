@@ -16,6 +16,7 @@ export class MainPage {
   readonly successMessage: Locator;
   readonly setDescendingOrder: Locator;
   readonly productItem: Locator;
+  readonly consentButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -29,6 +30,7 @@ export class MainPage {
     this.successMessage = page.locator("[data-ui-id=message-success]");
     this.setDescendingOrder = page.locator(".sorter-action").first();
     this.productItem = page.locator(".product-item");
+    this.consentButton = page.getByLabel("Consent", { exact: true });
   }
 
   async isOnMainPage(): Promise<void> {
@@ -117,6 +119,12 @@ export class MainPage {
         await item.locator(this.itemCard.itemImage).click();
         break;
       }
+    }
+  }
+
+  async handlingConsentModal(): Promise<void> {
+    if (await this.consentButton.isVisible()) {
+      await this.consentButton.click();
     }
   }
 }

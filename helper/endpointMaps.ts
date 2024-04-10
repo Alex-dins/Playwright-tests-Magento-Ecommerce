@@ -5,6 +5,7 @@ export const EndpointMaps = {
   WOMEN_JACKETS: "/women/tops-women/jackets-women.html",
   WOMEN_HOODIES_AND_SWEATSHIRTS:
     "/women/tops-women/hoodies-and-sweatshirts-women.html",
+  MENS_TANKS: "/men/tops-men/tanks-men.html",
   MEN_PANTS: "/men/bottoms-men/pants-men.html",
   WISHLIST: /.*wishlist/,
   COMPARE: /.*product_compare/,
