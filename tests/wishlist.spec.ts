@@ -10,8 +10,10 @@ import alerts from "../test-data/alerts.json";
 test.describe("Testing My Wish List", () => {
   test.beforeEach(async ({ page }) => {
     //Login into app
+    const mainPage = new MainPage(page);
     const loginPage = new LoginPage(page);
     await page.goto(EndpointMaps.LOGIN);
+    await mainPage.handlingConsentModal();
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
   });
 
@@ -73,7 +75,6 @@ test.describe("Testing My Wish List", () => {
       `${menProductName} ${alerts.SUCCESSFULLY_REMOVED_ITEM_FROM_WISHLIST}`
     );
 
-    
     await expect(mywishlistPage.emptyMessage).toHaveText(alerts.EMPTY_WISHLIST);
   });
 });

@@ -11,6 +11,7 @@ export class ProductDetailsPage {
   readonly submitButton: Locator;
   readonly successMessage: Locator;
   readonly reviewList: Locator;
+  readonly reviewForm: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -27,6 +28,11 @@ export class ProductDetailsPage {
     this.submitButton = page.getByText("Submit Review");
     this.successMessage = page.locator("[data-ui-id=message-success]");
     this.reviewList = page.locator("#product-review-container li");
+    this.reviewForm = page.locator("#review-form");
+  }
+
+  async scrollIntoReviewForm(): Promise<void> {
+    await this.reviewForm.scrollIntoViewIfNeeded();
   }
 
   async submitReview(

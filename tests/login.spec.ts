@@ -5,10 +5,13 @@ import { MyAccountPage } from "../page-objects/myAccountPage";
 import { generateFakeUser } from "../helper/fakeUser";
 import alerts from "../test-data/alerts.json";
 import errorLabels from "../test-data/errorLabels.json";
+import { MainPage } from "../page-objects/mainPage";
 
 test.describe("Testing Sign In", () => {
   test.beforeEach(async ({ page }) => {
+    const mainPage = new MainPage(page);
     await page.goto(EndpointMaps.LOGIN);
+    await mainPage.handlingConsentModal();
   });
 
   test("Successfully", async ({ page }) => {
@@ -26,10 +29,15 @@ test.describe("Testing Sign In", () => {
   test("Empty fields", async ({ page }) => {
     //Logging in
     const loginPage = new LoginPage(page);
-    await loginPage.login("", "");
+    await loginPage.login(" ", " ");
+
     //Check error empty fields
-    await expect(loginPage.errorAlert).toBeVisible();
-    await expect(loginPage.errorAlert).toContainText(alerts.ERROR_EMPTY_FIELD);
+    await expect(loginPage.emailErrorLabel).toContainText(
+      errorLabels.ERROR_LABEL_FIELD_REQUIRED
+    );
+    await expect(loginPage.passwordErrorLable).toContainText(
+      errorLabels.ERROR_LABEL_FIELD_REQUIRED
+    );
   });
 
   test("Incorrect email", async ({ page }) => {
@@ -39,8 +47,8 @@ test.describe("Testing Sign In", () => {
     await loginPage.login(fakeUser.username, fakeUser.password);
     await loginPage.waitForMessage(1000);
     //Check error labels
-    await expect(loginPage.errorRequiredLabel).toBeVisible();
-    await expect(loginPage.errorRequiredLabel).toContainText(
+    await expect(loginPage.emailErrorLabel).toBeVisible();
+    await expect(loginPage.emailErrorLabel).toContainText(
       errorLabels.ERROR_LABEL_INCORRECT_EMAIL
     );
   });

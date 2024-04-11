@@ -46,9 +46,9 @@ test.describe("Testing compare items", () => {
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
     );
-    await expect(mainPage.sideBarMenu.itemsInCompareProductBlock).toHaveCount(
-      1
-    );
+    await expect
+      .soft(mainPage.sideBarMenu.itemsInCompareProductBlock)
+      .toHaveCount(1);
     //Change sort option on the page
     await mainPage.sortOption.selectOption("Product Name");
     await expect(mainPage.itemCard.productItemName.first()).toContainText(
@@ -67,8 +67,9 @@ test.describe("Testing compare items", () => {
 
     //Change sort option on the page by price and descending order
     await mainPage.sortOption.selectOption("Price");
-    await page.waitForLoadState("domcontentloaded");
-    await mainPage.setDescendingOrder.click({ clickCount: 2, force: true });
+    // await page.waitForLoadState("load");
+    await mainPage.page.waitForTimeout(3000);
+    await mainPage.setDescendingOrder.dblclick();
 
     await expect(mainPage.itemCard.productItemName.first()).toContainText(
       bagsToCompare[2]

@@ -10,7 +10,7 @@ require("dotenv").config();
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 30000,
+  // timeout: 30000,
   expect: {
     timeout: 10000,
   },

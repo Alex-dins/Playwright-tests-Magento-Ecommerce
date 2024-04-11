@@ -59,9 +59,8 @@ test.describe("Submitting a review", () => {
       force: true,
     });
 
-    await productDetailsPage.page
-      .locator("#review-form")
-      .scrollIntoViewIfNeeded();
+    await productDetailsPage.scrollIntoReviewForm();
+
     await productDetailsPage.submitReview(
       //   dataForReview.STARS[5],
       dataForReview.NICKNAME,
@@ -106,14 +105,20 @@ test.describe("Submitting a review", () => {
     const reviewCounts = await productDetailsPage.reviewList.count();
     await expect(reviewCounts).toBeGreaterThan(0);
 
-    await productDetailsPage.page
-      .locator("#review-form")
-      .scrollIntoViewIfNeeded();
+    await productDetailsPage.scrollIntoReviewForm();
+
     await productDetailsPage.submitReview(
       //   dataForReview.STARS[5],
       dataForReview.NICKNAME,
       dataForReview.SUMMARY,
       dataForReview.REVIEW
+    );
+
+    //Submit the review
+    await productDetailsPage.submitButton.click();
+    //Check if messages containt expected text
+    await expect(productDetailsPage.successMessage).toContainText(
+      alers.SUCCESSFULLY_SUBMITTED_REVIEW
     );
   });
 });

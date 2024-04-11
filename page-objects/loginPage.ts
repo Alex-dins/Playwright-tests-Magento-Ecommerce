@@ -5,8 +5,8 @@ export class LoginPage {
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
-  readonly errorAlert: Locator;
-  readonly errorRequiredLabel: Locator;
+  readonly emailErrorLabel: Locator;
+  readonly passwordErrorLable: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -17,8 +17,8 @@ export class LoginPage {
       name: "Password",
     });
     this.loginButton = page.getByRole("button", { name: "Sign In" });
-    this.errorAlert = page.locator('[data-ui-id="message-error"]');
-    this.errorRequiredLabel = page.locator("id=email-error");
+    this.emailErrorLabel = page.locator("id=email-error");
+    this.passwordErrorLable = page.locator("id=pass-error");
   }
 
   async login(email: string, password: string): Promise<void> {
