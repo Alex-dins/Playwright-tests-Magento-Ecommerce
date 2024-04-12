@@ -12,7 +12,7 @@ export class CompareProductsPage {
     this.page = page;
     this.productsToCompare = page.locator('[id="product-comparison"]');
     this.removeProductButton = page.locator("td").getByTitle("Remove Product");
-    this.confirmPopupButton = page.getByRole("button", { name: "OK" });
+    this.confirmPopupButton = page.getByRole("button", { name: "OK" }).first();
     this.emptyMessage = page.locator(".empty").locator("div");
     this.successMessage = page.locator('[data-ui-id="message-success"]');
   }
