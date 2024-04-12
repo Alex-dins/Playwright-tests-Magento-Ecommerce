@@ -8,13 +8,6 @@ import dataForReview from "../test-data/dataForReview.json";
 import alers from "../test-data/alerts.json";
 
 test.describe("Submitting a review", () => {
-  // test.beforeEach(async ({ page }) => {
-  //   //Login to app
-  //   const loginPage = new LoginPage(page);
-  //   await page.goto(EndpointMaps.LOGIN);
-  //   await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
-  // });
-
   let page: Page;
 
   test.beforeAll("Sign in", async ({ browser }) => {
@@ -26,9 +19,9 @@ test.describe("Submitting a review", () => {
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
   });
 
-  // test.afterAll("Close browser", async () => {
-  //   await page.close();
-  // });
+  test.afterAll("Close browser", async () => {
+    await page.close();
+  });
 
   test("First time submitting review for product", async () => {
     const mainPage = new MainPage(page);
@@ -54,15 +47,12 @@ test.describe("Submitting a review", () => {
     //After redirected to the product details page check if name is visible
     await expect(productDetailsPage.productName).toBeVisible();
 
-    await productDetailsPage.addFirstReviewButton.click({
-      timeout: 2000,
-      force: true,
-    });
+    await productDetailsPage.page.waitForTimeout(2000);
+    await productDetailsPage.addFirstReviewButton.click();
 
     await productDetailsPage.scrollIntoReviewForm();
-
     await productDetailsPage.submitReview(
-      //   dataForReview.STARS[5],
+      dataForReview.STARS[5],
       dataForReview.NICKNAME,
       dataForReview.SUMMARY,
       dataForReview.REVIEW
@@ -96,26 +86,22 @@ test.describe("Submitting a review", () => {
     //After redirected to the product details page check if name is visible
     await expect(productDetailsPage.productName).toBeVisible();
 
-    await productDetailsPage.addYourReviewButton.click({
-      timeout: 2000,
-      force: true,
-    });
-    await productDetailsPage.page.waitForTimeout(3000);
+    await productDetailsPage.page.waitForTimeout(2000);
+    await productDetailsPage.addYourReviewButton.click();
 
+    await productDetailsPage.page.waitForTimeout(3000);
     const reviewCounts = await productDetailsPage.reviewList.count();
     await expect(reviewCounts).toBeGreaterThan(0);
 
     await productDetailsPage.scrollIntoReviewForm();
 
     await productDetailsPage.submitReview(
-      //   dataForReview.STARS[5],
+      dataForReview.STARS[4],
       dataForReview.NICKNAME,
       dataForReview.SUMMARY,
       dataForReview.REVIEW
     );
 
-    //Submit the review
-    await productDetailsPage.submitButton.click();
     //Check if messages containt expected text
     await expect(productDetailsPage.successMessage).toContainText(
       alers.SUCCESSFULLY_SUBMITTED_REVIEW

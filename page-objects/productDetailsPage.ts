@@ -36,22 +36,23 @@ export class ProductDetailsPage {
   }
 
   async submitReview(
-    // stars: string,
+    starRating: number,
     nickname: string,
     summary: string,
     review: string
   ): Promise<void> {
-    const ratings = this.page.getByLabel("5 stars");
-
-    const box = await ratings.boundingBox();
-    const x = box!.x + box!.width / 2;
-    const y = box!.y + box!.height / 2;
-
-    await this.page.mouse.move(x + 185, y + 17);
-    await this.page.mouse.click(x + 185, y + 17);
-
+    await this.page.evaluate((rating: number) => {
+      const selector = `#Rating_${rating}_label`;
+      const element = document.querySelector<HTMLElement>(selector);
+      if (element) {
+        element.click();
+      } else {
+        throw new Error(`Element with selector ${selector} not found`);
+      }
+    }, starRating);
     await this.nicknameInput.fill(nickname);
     await this.summaryInput.fill(summary);
     await this.reviewInput.fill(review);
+    await this.submitButton.click();
   }
 }

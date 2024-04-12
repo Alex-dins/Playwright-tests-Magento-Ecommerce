@@ -1,10 +1,10 @@
 {
   "STARS": {
-    "1 STAR": "1 star",
-    "2 STARS": "2 stars",
-    "3 STARS": "3 stars",
-    "4 STARS": "4 stars",
-    "5": "5 stars"
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5
   },
   "NICKNAME": "Playwright",
   "SUMMARY": "Best hoodies I've owned.",
