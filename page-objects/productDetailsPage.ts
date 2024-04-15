@@ -12,6 +12,9 @@ export class ProductDetailsPage {
   readonly successMessage: Locator;
   readonly reviewList: Locator;
   readonly reviewForm: Locator;
+  readonly starsRatingErrorLabel: Locator;
+  readonly summaryErrorLabel: Locator;
+  readonly reviewErrorLabel: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -29,6 +32,9 @@ export class ProductDetailsPage {
     this.successMessage = page.locator("[data-ui-id=message-success]");
     this.reviewList = page.locator("#product-review-container li");
     this.reviewForm = page.locator("#review-form");
+    this.starsRatingErrorLabel = this.page.locator('[id="ratings[4]-error"]');
+    this.summaryErrorLabel = this.page.locator('[id="summary_field-error"]');
+    this.reviewErrorLabel = this.page.locator('[id="review_field-error"]');
   }
 
   async scrollIntoReviewForm(): Promise<void> {

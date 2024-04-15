@@ -6,6 +6,7 @@ import { EndpointMaps } from "../helper/endpointMaps";
 import { MEN_CATEGORIES, WOMEN_CATEGORIES } from "../helper/categories";
 import dataForReview from "../test-data/dataForReview.json";
 import alers from "../test-data/alerts.json";
+import errorLabels from "../test-data/errorLabels.json";
 
 test.describe("Submitting a review", () => {
   let page: Page;
@@ -58,9 +59,6 @@ test.describe("Submitting a review", () => {
       dataForReview.REVIEW
     );
 
-    //Submit the review
-    await productDetailsPage.submitButton.click();
-
     //Check if messages containt expected text
     await expect(productDetailsPage.successMessage).toContainText(
       alers.SUCCESSFULLY_SUBMITTED_REVIEW
@@ -105,6 +103,41 @@ test.describe("Submitting a review", () => {
     //Check if messages containt expected text
     await expect(productDetailsPage.successMessage).toContainText(
       alers.SUCCESSFULLY_SUBMITTED_REVIEW
+    );
+  });
+
+  test("Validation of review submission form", async () => {
+    const mainPage = new MainPage(page);
+    const productDetailsPage = new ProductDetailsPage(page);
+
+    //Choose product from men category
+    await mainPage.chooseClothesCategory(
+      "MEN",
+      "BOTTOMS",
+      MEN_CATEGORIES.bottoms.shorts
+    );
+
+    await expect(mainPage.page).toHaveURL(EndpointMaps.MENS_SHORTS);
+
+    //Find product without reviews
+    await mainPage.chooseProductToReview("withoutReview");
+
+    //After redirected to the product details page check if name is visible
+    await expect(productDetailsPage.productName).toBeVisible();
+
+    await productDetailsPage.page.waitForTimeout(2000);
+    await productDetailsPage.addFirstReviewButton.click();
+    await productDetailsPage.submitButton.click();
+
+    //Assert error labels
+    await expect(productDetailsPage.starsRatingErrorLabel).toHaveText(
+      errorLabels.ERROR_LABEL_NO_STARTS_SELECTED
+    );
+    await expect(productDetailsPage.summaryErrorLabel).toHaveText(
+      errorLabels.ERROR_LABEL_FIELD_REQUIRED
+    );
+    await expect(productDetailsPage.reviewErrorLabel).toHaveText(
+      errorLabels.ERROR_LABEL_FIELD_REQUIRED
     );
   });
 });
