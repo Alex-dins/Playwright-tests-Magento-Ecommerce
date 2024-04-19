@@ -3,15 +3,13 @@ import { LoginPage } from "../page-objects/loginPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { MyAccountPage } from "../page-objects/myAccountPage";
 import { generateFakeUser } from "../helper/fakeUser";
-import alerts from "../test-data/alerts.json";
+import { handlingConsentModal } from "../helper/utils/functions";
 import errorLabels from "../test-data/errorLabels.json";
-import { MainPage } from "../page-objects/mainPage";
 
 test.describe("Testing Sign In", () => {
   test.beforeEach(async ({ page }) => {
-    const mainPage = new MainPage(page);
     await page.goto(EndpointMaps.LOGIN);
-    await mainPage.handlingConsentModal();
+    await handlingConsentModal(page);
   });
 
   test("Successfully", async ({ page }) => {

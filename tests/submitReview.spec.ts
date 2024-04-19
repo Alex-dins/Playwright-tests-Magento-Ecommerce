@@ -4,6 +4,7 @@ import { MainPage } from "../page-objects/mainPage";
 import { ProductDetailsPage } from "../page-objects/productDetailsPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { MEN_CATEGORIES, WOMEN_CATEGORIES } from "../helper/categories";
+import { handlingConsentModal } from "../helper/utils/functions";
 import dataForReview from "../test-data/dataForReview.json";
 import alers from "../test-data/alerts.json";
 import errorLabels from "../test-data/errorLabels.json";
@@ -14,9 +15,8 @@ test.describe("Submitting a review", () => {
   test.beforeAll("Sign in", async ({ browser }) => {
     page = await browser.newPage();
     const loginPage = new LoginPage(page);
-    const mainPage = new MainPage(page);
     await page.goto(EndpointMaps.LOGIN);
-    await mainPage.handlingConsentModal();
+    await handlingConsentModal(page);
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
   });
 

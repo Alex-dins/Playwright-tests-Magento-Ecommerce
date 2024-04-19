@@ -4,16 +4,16 @@ import { MainPage } from "../page-objects/mainPage";
 import { MyWishlistPage } from "../page-objects/myWishlistPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { MEN_CATEGORIES, WOMEN_CATEGORIES } from "../helper/categories";
+import { handlingConsentModal } from "../helper/utils/functions";
 import commons from "../test-data/commons.json";
 import alerts from "../test-data/alerts.json";
 
 test.describe("Testing My Wish List", () => {
   test.beforeEach(async ({ page }) => {
     //Login into app
-    const mainPage = new MainPage(page);
     const loginPage = new LoginPage(page);
     await page.goto(EndpointMaps.LOGIN);
-    await mainPage.handlingConsentModal();
+    await handlingConsentModal(page);
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
   });
 

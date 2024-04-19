@@ -4,6 +4,7 @@ import { MainPage } from "../page-objects/mainPage";
 import { CompareProductsPage } from "../page-objects/compareProductsPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { GEARS } from "../helper/categories";
+import { handlingConsentModal } from "../helper/utils/functions";
 import commons from "../test-data/commons.json";
 import alerts from "../test-data/alerts.json";
 
@@ -11,9 +12,8 @@ test.describe("Testing compare items", () => {
   test.beforeEach(async ({ page }) => {
     //Login to app
     const loginPage = new LoginPage(page);
-    const mainPage = new MainPage(page);
     await page.goto(EndpointMaps.LOGIN);
-    await mainPage.handlingConsentModal();
+    await handlingConsentModal(page);
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
   });
 
@@ -56,7 +56,6 @@ test.describe("Testing compare items", () => {
     );
     //Choose second product
     await mainPage.chooseBagsByName(bagsToCompare[1], addToCompareButton);
-    await page.waitForLoadState("load");
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
@@ -67,7 +66,7 @@ test.describe("Testing compare items", () => {
 
     //Change sort option on the page by price and descending order
     await mainPage.sortOption.selectOption("Price");
-    await mainPage.page.waitForTimeout(3000);
+    await mainPage.page.waitForTimeout(2000);
     await mainPage.setDescendingOrder.click();
 
     await expect(mainPage.itemCard.productItemName.first()).toContainText(
