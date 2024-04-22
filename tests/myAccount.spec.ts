@@ -1,8 +1,8 @@
 import { test, expect, Page } from "@playwright/test";
 import { LoginPage } from "../page-objects/loginPage";
-import { MainPage } from "../page-objects/mainPage";
 import { EndpointMaps } from "../helper/endpointMaps";
 import { MyAccountPage } from "../page-objects/myAccountPage";
+import { generateFakeUser } from "../helper/fakeUser";
 import { handlingConsentModal } from "../helper/utils/functions";
 
 test.describe("Testing My Account functionalities", () => {
@@ -11,12 +11,10 @@ test.describe("Testing My Account functionalities", () => {
   test.beforeAll("Sign in", async ({ browser }) => {
     page = await browser.newPage();
     const loginPage = new LoginPage(page);
-    const mainPage = new MainPage(page);
     const myAccountPage = new MyAccountPage(page);
 
     await page.goto(EndpointMaps.LOGIN);
     await handlingConsentModal(page);
-    // await mainPage.handlingConsentModal();
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
 
     await expect(page).toHaveURL(EndpointMaps.USER_ACCOUNT);
@@ -29,5 +27,19 @@ test.describe("Testing My Account functionalities", () => {
   //   await page.close();
   // });
 
-  test("Update First Name and Last Name", async () => {});
+  test("Update First Name and Last Name", async () => {
+    const myAccountPage = new MyAccountPage(page);
+    const fakeUser = generateFakeUser();
+
+    await myAccountPage.editDataButton.click();
+
+    await expect(page).toHaveURL(EndpointMaps.EDIT_USER_ACCOUNT);
+
+    // Change First Name and Last Name
+    await myAccountPage.firstNameInput.fill(fakeUser.username);
+    await myAccountPage.lastNameInput.fill(fakeUser.lastname);
+
+    await expect(myAccountPage.changeEmailCheckbox).not.toBeChecked();
+    await expect(myAccountPage.changePasswordCheckbox).not.toBeChecked();
+  });
 });

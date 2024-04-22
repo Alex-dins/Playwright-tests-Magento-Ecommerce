@@ -17,7 +17,7 @@ test.describe("Testing compare items", () => {
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
   });
 
-  test("Add items to campare and delete them", async ({ page }) => {
+  test("Add items to compare and delete them", async ({ page }) => {
     const mainPage = new MainPage(page);
     const compareProductsPage = new CompareProductsPage(page);
     const addToCompareButton = mainPage.itemCard.addToCompareIcon;
