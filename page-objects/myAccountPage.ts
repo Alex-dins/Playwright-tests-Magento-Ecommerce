@@ -9,6 +9,7 @@ export class MyAccountPage {
   readonly changeEmailCheckbox: Locator;
   readonly changePasswordCheckbox: Locator;
   readonly saveButton: Locator;
+  readonly successMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -19,5 +20,15 @@ export class MyAccountPage {
     this.changeEmailCheckbox = page.locator("#change-email");
     this.changePasswordCheckbox = page.locator("#change-password");
     this.saveButton = page.getByRole("button", { name: "Save" });
+    this.successMessage = page.locator("[data-ui-id=message-success]");
+  }
+
+  async changeFirstAndLastName(
+    username: string,
+    lastname: string
+  ): Promise<void> {
+    await this.firstNameInput.fill(username);
+    await this.lastNameInput.fill(lastname);
+    await this.saveButton.click();
   }
 }

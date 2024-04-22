@@ -4,6 +4,7 @@ import { EndpointMaps } from "../helper/endpointMaps";
 import { MyAccountPage } from "../page-objects/myAccountPage";
 import { generateFakeUser } from "../helper/fakeUser";
 import { handlingConsentModal } from "../helper/utils/functions";
+import alerts from "../test-data/alerts.json";
 
 test.describe("Testing My Account functionalities", () => {
   let page: Page;
@@ -23,9 +24,9 @@ test.describe("Testing My Account functionalities", () => {
     );
   });
 
-  // test.afterAll("Close browser", async () => {
-  //   await page.close();
-  // });
+  test.afterAll("Close browser", async () => {
+    await page.close();
+  });
 
   test("Update First Name and Last Name", async () => {
     const myAccountPage = new MyAccountPage(page);
@@ -34,12 +35,18 @@ test.describe("Testing My Account functionalities", () => {
     await myAccountPage.editDataButton.click();
 
     await expect(page).toHaveURL(EndpointMaps.EDIT_USER_ACCOUNT);
-
-    // Change First Name and Last Name
-    await myAccountPage.firstNameInput.fill(fakeUser.username);
-    await myAccountPage.lastNameInput.fill(fakeUser.lastname);
-
     await expect(myAccountPage.changeEmailCheckbox).not.toBeChecked();
     await expect(myAccountPage.changePasswordCheckbox).not.toBeChecked();
+
+    // Change First Name and Last Name
+    await myAccountPage.changeFirstAndLastName(
+      fakeUser.username,
+      fakeUser.lastname
+    );
+
+    //Check successful message
+    await expect(myAccountPage.successMessage).toContainText(
+      alerts.SUCCESSFULLY_UPDATED_ACCOUNT_INFO
+    );
   });
 });
