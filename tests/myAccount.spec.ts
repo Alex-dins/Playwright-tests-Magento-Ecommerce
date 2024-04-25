@@ -24,9 +24,9 @@ test.describe("Testing My Account functionalities", () => {
     );
   });
 
-  test.afterAll("Close browser", async () => {
-    await page.close();
-  });
+  //   test.afterAll("Close browser", async () => {
+  //     await page.close();
+  //   });
 
   test("Update First Name and Last Name", async () => {
     const myAccountPage = new MyAccountPage(page);
@@ -48,5 +48,10 @@ test.describe("Testing My Account functionalities", () => {
     await expect(myAccountPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_UPDATED_ACCOUNT_INFO
     );
+  });
+
+  test("Update delivery adress", async () => {
+
+    
   });
 });
