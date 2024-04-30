@@ -7,5 +7,7 @@
   "EMPTY_WISHLIST": "You have no items in your wish list.",
   "SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST": "You added product",
   "SUCCESSFULLY_REMOVED_ITEM_FROM_COMPARELIST": "You removed product",
-  "SUCCESSFULLY_UPDATED_ACCOUNT_INFO": "You saved the account information."
+  "SUCCESSFULLY_UPDATED_ACCOUNT_INFO": "You saved the account information.",
+  "SUCCESSFULLY_SAVED_ADDRESS": "You saved the address.",
+  "SUCCESSFULLY_DELETED_ADDRESS": "You deleted the address."
 }

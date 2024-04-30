@@ -21,6 +21,11 @@ export class MyAccountPage {
   readonly postalCodeInput: Locator;
   readonly countryDropdownMenu: Locator;
   readonly saveAdrressButton: Locator;
+  readonly addNewAddress: Locator;
+  readonly billingAddressCheckbox: Locator;
+  readonly shippingAddressCheckbox: Locator;
+  readonly deleteAdressButton: Locator;
+  readonly confirmPopupButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -45,6 +50,11 @@ export class MyAccountPage {
     this.postalCodeInput = page.locator("#zip");
     this.countryDropdownMenu = page.locator("#country");
     this.saveAdrressButton = page.getByRole("button", { name: "Save Address" });
+    this.addNewAddress = page.getByRole("button", { name: "Add New Address" });
+    this.billingAddressCheckbox = page.locator("#primary_billing");
+    this.shippingAddressCheckbox = page.locator("#primary_shipping");
+    this.deleteAdressButton = page.getByRole("link", { name: "Delete" });
+    this.confirmPopupButton = page.getByRole("button", { name: "OK", exact: true });
   }
 
   async changeFirstAndLastName(
@@ -54,5 +64,23 @@ export class MyAccountPage {
     await this.firstNameInput.fill(username);
     await this.lastNameInput.fill(lastname);
     await this.saveButton.click();
+  }
+
+  async fillAdressForm(
+    company: string,
+    phoneNumber: string,
+    streetAdress: string,
+    city: string,
+    state: string,
+    postalCode: string,
+    country: string
+  ): Promise<void> {
+    await this.companyInput.fill(company);
+    await this.phoneNumberInput.fill(phoneNumber);
+    await this.streetAdressInput.fill(streetAdress);
+    await this.cityInput.fill(city);
+    await this.stateDropdownMenu.selectOption(state);
+    await this.postalCodeInput.fill(postalCode);
+    await this.countryDropdownMenu.selectOption(country);
   }
 }
