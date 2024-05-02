@@ -54,7 +54,10 @@ export class MyAccountPage {
     this.billingAddressCheckbox = page.locator("#primary_billing");
     this.shippingAddressCheckbox = page.locator("#primary_shipping");
     this.deleteAdressButton = page.getByRole("link", { name: "Delete" });
-    this.confirmPopupButton = page.getByRole("button", { name: "OK", exact: true });
+    this.confirmPopupButton = page.getByRole("button", {
+      name: "OK",
+      exact: true,
+    });
   }
 
   async changeFirstAndLastName(
@@ -66,21 +69,22 @@ export class MyAccountPage {
     await this.saveButton.click();
   }
 
-  async fillAdressForm(
-    company: string,
-    phoneNumber: string,
-    streetAdress: string,
-    city: string,
-    state: string,
-    postalCode: string,
-    country: string
-  ): Promise<void> {
-    await this.companyInput.fill(company);
-    await this.phoneNumberInput.fill(phoneNumber);
-    await this.streetAdressInput.fill(streetAdress);
-    await this.cityInput.fill(city);
-    await this.stateDropdownMenu.selectOption(state);
-    await this.postalCodeInput.fill(postalCode);
-    await this.countryDropdownMenu.selectOption(country);
+  async fillAdressForm(addressData: Record<string, string>): Promise<void> {
+    const {
+      COMPANY,
+      PHONE_NUMBER,
+      STREET_ADRESS,
+      CITY,
+      STATE,
+      POSTAL_CODE,
+      COUNTRY,
+    } = addressData;
+    await this.companyInput.fill(COMPANY);
+    await this.phoneNumberInput.fill(PHONE_NUMBER);
+    await this.streetAdressInput.fill(STREET_ADRESS);
+    await this.cityInput.fill(CITY);
+    await this.stateDropdownMenu.selectOption(STATE);
+    await this.postalCodeInput.fill(POSTAL_CODE);
+    await this.countryDropdownMenu.selectOption(COUNTRY);
   }
 }

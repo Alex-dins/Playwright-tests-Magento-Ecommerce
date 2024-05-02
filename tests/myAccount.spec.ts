@@ -25,9 +25,9 @@ test.describe("Testing My Account functionalities", () => {
     );
   });
 
-  //   test.afterAll("Close browser", async () => {
-  //     await page.close();
-  //   });
+    test.afterAll("Close browser", async () => {
+      await page.close();
+    });
 
   test("Update First Name and Last Name", async () => {
     const myAccountPage = new MyAccountPage(page);
@@ -58,15 +58,7 @@ test.describe("Testing My Account functionalities", () => {
     await myAccountPage.billingAdressButton.click();
 
     //Fill adress detail
-    await myAccountPage.fillAdressForm(
-      deliveryData.COMPANY,
-      deliveryData.PHONE_NUMBER,
-      deliveryData.STREET_ADRESS,
-      deliveryData.CITY,
-      deliveryData.STATE,
-      deliveryData.POSTAL_CODE,
-      deliveryData.COUNTRY
-    );
+    await myAccountPage.fillAdressForm(deliveryData);
     await myAccountPage.saveAdrressButton.click();
 
     //Check successful message
@@ -80,15 +72,7 @@ test.describe("Testing My Account functionalities", () => {
 
     await myAccountPage.addNewAddress.click();
 
-    await myAccountPage.fillAdressForm(
-      deliveryData.COMPANY,
-      deliveryData.PHONE_NUMBER,
-      deliveryData.STREET_ADRESS,
-      deliveryData.CITY,
-      deliveryData.STATE,
-      deliveryData.POSTAL_CODE,
-      deliveryData.COUNTRY
-    );
+    await myAccountPage.fillAdressForm(deliveryData);
 
     //Make sure the new address is not set as the default for billing or shipping
     await expect(myAccountPage.billingAddressCheckbox).not.toBeChecked();
