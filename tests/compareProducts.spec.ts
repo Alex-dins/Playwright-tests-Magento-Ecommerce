@@ -20,7 +20,7 @@ test.describe("Testing compare items", () => {
   test("Add items to compare and delete them", async ({ page }) => {
     const mainPage = new MainPage(page);
     const compareProductsPage = new CompareProductsPage(page);
-    const addToCompareButton = mainPage.itemCard.addToCompareIcon;
+    const addToCompareList = mainPage.itemCard.addToCompareIcon;
     const bagsToCompare = [
       "Fusion Backpack",
       "Compete Track Tote",
@@ -41,7 +41,7 @@ test.describe("Testing compare items", () => {
     await expect(mainPage.productItems).toHaveCount(14);
 
     //Choose first product
-    await mainPage.chooseBagsByName(bagsToCompare[0], addToCompareButton);
+    await mainPage.chooseBagsByName(bagsToCompare[0], addToCompareList);
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
@@ -55,7 +55,7 @@ test.describe("Testing compare items", () => {
       bagsToCompare[1]
     );
     //Choose second product
-    await mainPage.chooseBagsByName(bagsToCompare[1], addToCompareButton);
+    await mainPage.chooseBagsByName(bagsToCompare[1], addToCompareList);
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
@@ -73,7 +73,7 @@ test.describe("Testing compare items", () => {
       bagsToCompare[2]
     );
     //Choose third product
-    await mainPage.chooseBagsByName(bagsToCompare[2], addToCompareButton);
+    await mainPage.chooseBagsByName(bagsToCompare[2], addToCompareList);
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST

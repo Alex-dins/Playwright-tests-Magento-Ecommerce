@@ -59,7 +59,7 @@ export class MainPage {
       .then(async () => await this.page.locator(subcategory).click());
   }
 
-  async selectItemByPrice(type: "low" | "high"): Promise<void> {
+  async selectItemByPrice(type: "low" | "high", addTo: Locator): Promise<void> {
     await this.page.waitForTimeout(1000);
     const allPricesText = await this.itemCard.itemPrice.allInnerTexts();
     const prices = allPricesText.map((price) => numberConverter(price));
@@ -75,12 +75,18 @@ export class MainPage {
     }
 
     const selectedItemPrice = this.itemCard.itemPrice.nth(selectedIdx);
-    await selectedItemPrice
-      .hover()
-      .then(
-        async () =>
-          await this.itemCard.addToWishlistIcon.nth(selectedIdx).click()
-      );
+    await selectedItemPrice.hover().then(
+      async () => {
+        if (addTo === this.itemCard.addToCompareIcon) {
+          await this.itemCard.addToCompareIcon.nth(selectedIdx).click();
+        } else if (addTo === this.itemCard.addToWishlistIcon) {
+          await this.itemCard.addToWishlistIcon.nth(selectedIdx).click();
+        } else {
+          await this.itemCard.addToCardButton.nth(selectedIdx).click();
+        }
+      }
+      // await this.itemCard.addToWishlistIcon.nth(selectedIdx).click()
+    );
   }
 
   async showMoreProductsOnPage(number: string): Promise<void> {

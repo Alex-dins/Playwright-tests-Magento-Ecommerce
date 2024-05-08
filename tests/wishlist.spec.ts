@@ -20,6 +20,7 @@ test.describe("Testing My Wish List", () => {
   test("Add items to wish list and delete them", async ({ page }) => {
     const mainPage = new MainPage(page);
     const mywishlistPage = new MyWishlistPage(page);
+    const addToWishlist = mainPage.itemCard.addToWishlistIcon;
     await mainPage.isOnMainPage();
     //Add item from women category by lower price
     await mainPage.chooseClothesCategory(
@@ -33,7 +34,7 @@ test.describe("Testing My Wish List", () => {
       commons.EMPTY_WISH_LIST
     );
 
-    await mainPage.selectItemByPrice("low");
+    await mainPage.selectItemByPrice("low", addToWishlist);
 
     await expect(mywishlistPage.page).toHaveURL(EndpointMaps.WISHLIST);
     const womenProductName =
@@ -41,7 +42,7 @@ test.describe("Testing My Wish List", () => {
     await expect(mywishlistPage.successMessage).toHaveText(
       `${womenProductName} ${alerts.SUCCESSFULLY_ADDED_ITEM_TO_WISHLIST}`
     );
-    await expect(mainPage.sideBarMenu.itemsInWishListBlock).toHaveCount(1);
+    await expect.soft(mainPage.sideBarMenu.itemsInWishListBlock).toHaveCount(1);
 
     //Add item from men category by highest price
     await mainPage.chooseClothesCategory(
@@ -51,7 +52,7 @@ test.describe("Testing My Wish List", () => {
     );
     await expect(mainPage.page).toHaveURL(EndpointMaps.MEN_PANTS);
 
-    await mainPage.selectItemByPrice("high");
+    await mainPage.selectItemByPrice("high", addToWishlist);
 
     await expect(mywishlistPage.page).toHaveURL(EndpointMaps.WISHLIST);
     const menProductName = await mywishlistPage.itemCard.productItemName

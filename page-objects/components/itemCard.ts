@@ -9,6 +9,7 @@ export class ItemCard {
   readonly addToCompareIcon: Locator;
   readonly reviewBlock: Locator;
   readonly itemImage: Locator;
+  readonly addToCardButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -21,5 +22,6 @@ export class ItemCard {
     this.addToCompareIcon = page.getByLabel("Add to Compare");
     this.reviewBlock = page.locator(".product-reviews-summary");
     this.itemImage = page.locator(".product-image-photo");
+    this.addToCardButton = page.getByRole("button", { name: "Add to Cart" });
   }
 }

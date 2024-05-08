@@ -73,7 +73,7 @@ test.describe("Submitting a review", () => {
     await mainPage.chooseClothesCategory(
       "MEN",
       "TOPS",
-      MEN_CATEGORIES.tops.Tanks
+      MEN_CATEGORIES.tops.tanks
     );
 
     await expect(mainPage.page).toHaveURL(EndpointMaps.MENS_TANKS);

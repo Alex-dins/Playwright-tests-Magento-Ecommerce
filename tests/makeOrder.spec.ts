@@ -23,6 +23,7 @@ test.describe("Full user journey, place an order", () => {
 
   test("Place an order", async () => {
     const mainPage = new MainPage(page);
+    const addToCard = mainPage.itemCard.addToCardButton;
 
     //Navigate to the main page
     await mainPage.isOnMainPage();
@@ -34,6 +35,12 @@ test.describe("Full user journey, place an order", () => {
       WOMEN_CATEGORIES.tops.tanks
     );
 
-    
+    await expect(mainPage.page).toHaveURL(EndpointMaps.WOMEN_TANKS);
+
+    //Show more products on the page
+    await mainPage.showMoreProductsOnPage("24");
+    await expect(mainPage.productItems).toHaveCount(14);
+
+    await mainPage.selectItemByPrice("high", addToCard);
   });
 });
