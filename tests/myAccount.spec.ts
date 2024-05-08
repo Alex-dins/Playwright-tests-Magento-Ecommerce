@@ -25,9 +25,9 @@ test.describe("Testing My Account functionalities", () => {
     );
   });
 
-    test.afterAll("Close browser", async () => {
-      await page.close();
-    });
+  test.afterAll("Close browser", async () => {
+    await page.close();
+  });
 
   test("Update First Name and Last Name", async () => {
     const myAccountPage = new MyAccountPage(page);
@@ -70,6 +70,7 @@ test.describe("Testing My Account functionalities", () => {
   test("Add new Adress", async () => {
     const myAccountPage = new MyAccountPage(page);
 
+    await page.waitForTimeout(2000);
     await myAccountPage.addNewAddress.click();
 
     await myAccountPage.fillAdressForm(deliveryData);

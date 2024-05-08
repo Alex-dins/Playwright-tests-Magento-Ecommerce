@@ -3,7 +3,7 @@ export interface Categories {
     jackets: string;
     hoodiesAndSweatshirts: string;
     tees: string;
-    Tanks: string;
+    tanks: string;
   };
   bottoms: {
     pants: string;
@@ -16,7 +16,7 @@ export const WOMEN_CATEGORIES: Categories = {
     jackets: "id=ui-id-11",
     hoodiesAndSweatshirts: "id=ui-id-12",
     tees: "id=ui-id-13",
-    Tanks: "id=ui-id-14",
+    tanks: "id=ui-id-14",
   },
   bottoms: {
     pants: "id=ui-id-15",
@@ -29,7 +29,7 @@ export const MEN_CATEGORIES: Categories = {
     jackets: "id=ui-id-19",
     hoodiesAndSweatshirts: "id=ui-id-20",
     tees: "id=ui-id-21",
-    Tanks: "id=ui-id-22",
+    tanks: "id=ui-id-22",
   },
   bottoms: {
     pants: "id=ui-id-23",
