@@ -10,11 +10,13 @@ export class ProductDetailsPage {
   readonly reviewInput: Locator;
   readonly submitButton: Locator;
   readonly successMessage: Locator;
+  readonly informMessage: Locator;
   readonly reviewList: Locator;
   readonly reviewForm: Locator;
   readonly starsRatingErrorLabel: Locator;
   readonly summaryErrorLabel: Locator;
   readonly reviewErrorLabel: Locator;
+  readonly sizeList: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -30,11 +32,13 @@ export class ProductDetailsPage {
     this.reviewInput = page.locator("#review_field");
     this.submitButton = page.getByText("Submit Review");
     this.successMessage = page.locator("[data-ui-id=message-success]");
+    this.informMessage = page.locator('[data-ui-id="message-notice"]');
     this.reviewList = page.locator("#product-review-container li");
     this.reviewForm = page.locator("#review-form");
     this.starsRatingErrorLabel = this.page.locator('[id="ratings[4]-error"]');
     this.summaryErrorLabel = this.page.locator('[id="summary_field-error"]');
     this.reviewErrorLabel = this.page.locator('[id="review_field-error"]');
+    this.sizeList = page.getByLabel("Size");
   }
 
   async scrollIntoReviewForm(): Promise<void> {
@@ -60,5 +64,9 @@ export class ProductDetailsPage {
     await this.summaryInput.fill(summary);
     await this.reviewInput.fill(review);
     await this.submitButton.click();
+  }
+
+  async selectSize(size: string): Promise<void> {
+    await this.sizeList.getByLabel(size, { exact: true }).click();
   }
 }

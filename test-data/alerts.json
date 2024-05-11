@@ -9,5 +9,6 @@
   "SUCCESSFULLY_REMOVED_ITEM_FROM_COMPARELIST": "You removed product",
   "SUCCESSFULLY_UPDATED_ACCOUNT_INFO": "You saved the account information.",
   "SUCCESSFULLY_SAVED_ADDRESS": "You saved the address.",
-  "SUCCESSFULLY_DELETED_ADDRESS": "You deleted the address."
+  "SUCCESSFULLY_DELETED_ADDRESS": "You deleted the address.",
+  "ADD_OPTIONS_FOR_ITEMS": "You need to choose options for your item."
 }

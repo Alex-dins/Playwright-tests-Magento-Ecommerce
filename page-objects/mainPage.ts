@@ -75,25 +75,23 @@ export class MainPage {
     }
 
     const selectedItemPrice = this.itemCard.itemPrice.nth(selectedIdx);
-    await selectedItemPrice.hover().then(
-      async () => {
-        if (addTo === this.itemCard.addToCompareIcon) {
-          await this.itemCard.addToCompareIcon.nth(selectedIdx).click();
-        } else if (addTo === this.itemCard.addToWishlistIcon) {
-          await this.itemCard.addToWishlistIcon.nth(selectedIdx).click();
-        } else {
-          await this.itemCard.addToCardButton.nth(selectedIdx).click();
-        }
+    await selectedItemPrice.hover().then(async () => {
+      if (addTo === this.itemCard.addToCompareIcon) {
+        await this.itemCard.addToCompareIcon.nth(selectedIdx).click();
+      } else if (addTo === this.itemCard.addToWishlistIcon) {
+        await this.itemCard.addToWishlistIcon.nth(selectedIdx).click();
+      } else {
+        await this.itemCard.addToCardButton.nth(selectedIdx).click();
       }
-      // await this.itemCard.addToWishlistIcon.nth(selectedIdx).click()
-    );
+    });
   }
 
   async showMoreProductsOnPage(number: string): Promise<void> {
     await this.showOption.waitFor();
     await this.showOption.scrollIntoViewIfNeeded();
     await this.showOption.selectOption(number);
-    await this.page.waitForLoadState("load");
+    await this.page.waitForTimeout(1000);
+    // await this.page.waitForLoadState("load");
   }
 
   async chooseBagsByName(name: string, addTo: Locator): Promise<void> {
