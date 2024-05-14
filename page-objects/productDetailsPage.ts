@@ -1,4 +1,5 @@
 import { type Locator, type Page } from "@playwright/test";
+import { error } from "console";
 
 export class ProductDetailsPage {
   readonly page: Page;
@@ -17,6 +18,9 @@ export class ProductDetailsPage {
   readonly summaryErrorLabel: Locator;
   readonly reviewErrorLabel: Locator;
   readonly sizeList: Locator;
+  readonly colorList: Locator;
+  readonly quantityInput: Locator;
+  readonly addToCardButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -39,6 +43,9 @@ export class ProductDetailsPage {
     this.summaryErrorLabel = this.page.locator('[id="summary_field-error"]');
     this.reviewErrorLabel = this.page.locator('[id="review_field-error"]');
     this.sizeList = page.getByLabel("Size");
+    this.colorList = page.getByLabel("Color");
+    this.quantityInput = page.locator("#qty");
+    this.addToCardButton = page.locator("#product-addtocart-button");
   }
 
   async scrollIntoReviewForm(): Promise<void> {
@@ -68,5 +75,16 @@ export class ProductDetailsPage {
 
   async selectSize(size: string): Promise<void> {
     await this.sizeList.getByLabel(size, { exact: true }).click();
+  }
+
+  async selectColor(color: string): Promise<void> {
+    const colorVisibility = this.colorList.getByLabel(color).isVisible();
+    if (await colorVisibility) {
+      await this.colorList.getByLabel(color).click();
+    } else {
+      throw new Error(
+        "Product with this color doesn't exist. Choose another color"
+      );
+    }
   }
 }

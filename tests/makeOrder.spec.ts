@@ -43,7 +43,7 @@ test.describe("Full user journey, place an order", () => {
     //Shows more products on the page
     await mainPage.showMoreProductsOnPage("24");
 
-    await expect(mainPage.productItems).toHaveCount(14);
+    await expect.soft(mainPage.productItems).toHaveCount(14);
 
     //Select item by higher price
     await mainPage.selectItemByPrice("high", addToCard);
@@ -56,5 +56,11 @@ test.describe("Full user journey, place an order", () => {
 
     //Select size
     await productDetailsPage.selectSize(sizeList.L);
+
+    //Select color
+    await productDetailsPage.selectColor("Black");
+
+    //Select quantity
+    await productDetailsPage.quantityInput.fill("2");
   });
 });
