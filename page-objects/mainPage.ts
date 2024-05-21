@@ -16,6 +16,7 @@ export class MainPage {
   readonly successMessage: Locator;
   readonly setDescendingOrder: Locator;
   readonly productItem: Locator;
+  readonly cartBadge: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -29,6 +30,7 @@ export class MainPage {
     this.successMessage = page.locator("[data-ui-id=message-success]");
     this.setDescendingOrder = page.locator(".sorter-action").first();
     this.productItem = page.locator(".product-item");
+    this.cartBadge = page.locator(".counter-number");
   }
 
   async isOnMainPage(): Promise<void> {

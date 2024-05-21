@@ -58,9 +58,15 @@ test.describe("Full user journey, place an order", () => {
     await productDetailsPage.selectSize(sizeList.L);
 
     //Select color
-    await productDetailsPage.selectColor("Black");
+    await productDetailsPage.selectColor("Blue");
 
     //Select quantity
     await productDetailsPage.quantityInput.fill("2");
+
+    //Add to Cart
+    await productDetailsPage.addToCardButton.click();
+
+    //Asserts message on the added item page
+    await expect(mainPage.cartBadge).toHaveText("2");
   });
 });
