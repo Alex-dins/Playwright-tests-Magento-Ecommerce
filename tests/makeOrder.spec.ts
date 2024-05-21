@@ -19,9 +19,9 @@ test.describe("Full user journey, place an order", () => {
     await loginPage.login(process.env.USER_EMAIL!, process.env.PASSWORD!);
   });
 
-  //   test.afterAll("Close browser", async () => {
-  //     await page.close();
-  //   });
+  test.afterAll("Close browser", async () => {
+    await page.close();
+  });
 
   test("Place an order", async () => {
     const mainPage = new MainPage(page);
