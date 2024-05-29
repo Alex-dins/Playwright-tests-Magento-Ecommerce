@@ -29,7 +29,7 @@ test.describe("Full user journey, place an order", () => {
   test("Place an order", async () => {
     const mainPage = new MainPage(page);
     const productDetailsPage = new ProductDetailsPage(page);
-    const checkoutShippingPage = new CheckoutPage(page);
+    const checkoutPage = new CheckoutPage(page);
     const addToCard = mainPage.itemCard.addToCardButton;
 
     //Navigate to the main page
@@ -110,25 +110,23 @@ test.describe("Full user journey, place an order", () => {
 
     await expect(mainPage.page).toHaveURL(EndpointMaps.CHECKOUT_SHIPPING);
 
-    await checkoutShippingPage.chooseShippingMethod("Fixed");
+    await checkoutPage.chooseShippingMethod("Fixed");
 
-    await checkoutShippingPage.nextButton.click();
+    await checkoutPage.nextButton.click();
 
-    await expect(checkoutShippingPage.page).toHaveURL(
-      EndpointMaps.CHECKOUT_PAYMENT
-    );
+    await expect(checkoutPage.page).toHaveURL(EndpointMaps.CHECKOUT_PAYMENT);
 
     //Check if the subtotal + shipping cost is equal to the total price
-    await checkoutShippingPage.checkTotalPrice();
+    await checkoutPage.checkTotalPrice();
 
-    await checkoutShippingPage.placeOrderButton.click();
+    await checkoutPage.placeOrderButton.click();
     await page.waitForTimeout(2000);
 
-    await expect(checkoutShippingPage.confirmationMessage).toContainText(
+    await expect(checkoutPage.confirmationMessage).toContainText(
       commons.SUCCESSFUL_PURCHASE
     );
 
-    await checkoutShippingPage.continueShoppingButton.click();
+    await checkoutPage.continueShoppingButton.click();
 
     await expect(mainPage.page).toHaveURL(EndpointMaps.MAIN_PAGE);
   });
