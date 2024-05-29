@@ -1,4 +1,5 @@
 {
   "EMPTY_WISH_LIST": "You have no items in your wish list.",
-  "EMPTY_COMPARE_LIST": "You have no items to compare."
+  "EMPTY_COMPARE_LIST": "You have no items to compare.",
+  "SUCCESSFUL_PURCHASE": "Thank you for your purchase!"
 }

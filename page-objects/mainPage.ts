@@ -17,6 +17,9 @@ export class MainPage {
   readonly setDescendingOrder: Locator;
   readonly productItem: Locator;
   readonly cartBadge: Locator;
+  readonly cartButton: Locator;
+  readonly proceedToChekoutButton: Locator;
+  readonly cartDropdownMenuItems: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -31,6 +34,11 @@ export class MainPage {
     this.setDescendingOrder = page.locator(".sorter-action").first();
     this.productItem = page.locator(".product-item");
     this.cartBadge = page.locator(".counter-number");
+    this.cartButton = page.locator('[data-block="minicart"]');
+    this.proceedToChekoutButton = page.getByRole("button", {
+      name: "Proceed to Checkout",
+    });
+    this.cartDropdownMenuItems = page.locator("#mini-cart li");
   }
 
   async isOnMainPage(): Promise<void> {
