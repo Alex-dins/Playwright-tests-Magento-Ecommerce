@@ -9,7 +9,4 @@ export const handlingConsentModal = async function (page: Page): Promise<void> {
   if (await locator.isVisible()) {
     await locator.click();
   }
-  // else {
-  //   throw new Error("Locator not found");
-  // }
 };
