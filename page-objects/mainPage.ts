@@ -104,7 +104,7 @@ export class MainPage {
     // await this.page.waitForLoadState("load");
   }
 
-  async chooseBagsByName(name: string, addTo: Locator): Promise<void> {
+  async chooseProductByName(name: string, addTo: Locator): Promise<void> {
     const allItems = await this.itemCard.productItemName.allInnerTexts();
     const selectedIdx = allItems.findIndex((el) => el === name);
     await this.itemCard.productItemName.getByText(name).hover();
@@ -112,6 +112,8 @@ export class MainPage {
       await this.itemCard.addToCompareIcon.nth(selectedIdx).click();
     } else if (addTo === this.itemCard.addToWishlistIcon) {
       await this.itemCard.addToWishlistIcon.nth(selectedIdx).click();
+    } else if (addTo === this.itemCard.addToCardButton) {
+      await this.itemCard.addToCardButton.nth(selectedIdx).click();
     }
   }
 

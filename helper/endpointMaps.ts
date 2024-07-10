@@ -10,6 +10,7 @@ export const EndpointMaps = {
   MEN_PANTS: "/men/bottoms-men/pants-men.html",
   MEN_TEES: "/men/tops-men/tees-men.html",
   WOMEN_TANKS: "/women/tops-women/tanks-women.html",
+  WOMEN_SHORTS: "/women/bottoms-women/shorts-women.html",
   WISHLIST: /.*wishlist/,
   COMPARE: /.*product_compare/,
   MENS_SHORTS: "/men/bottoms-men/shorts-men.html",

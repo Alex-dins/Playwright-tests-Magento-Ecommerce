@@ -2,5 +2,7 @@
   "RED": "Red",
   "BLUE": "Blue",
   "YELLOW": "Yellow",
-  "BLACK": "Black"
+  "BLACK": "Black",
+  "ORANGE": "Orange",
+  "GRAY": "Gray"
 }

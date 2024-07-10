@@ -41,7 +41,7 @@ test.describe("Testing compare items", () => {
     await expect(mainPage.productItems).toHaveCount(14);
 
     //Choose first product
-    await mainPage.chooseBagsByName(bagsToCompare[0], addToCompareList);
+    await mainPage.chooseProductByName(bagsToCompare[0], addToCompareList);
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
@@ -55,7 +55,7 @@ test.describe("Testing compare items", () => {
       bagsToCompare[1]
     );
     //Choose second product
-    await mainPage.chooseBagsByName(bagsToCompare[1], addToCompareList);
+    await mainPage.chooseProductByName(bagsToCompare[1], addToCompareList);
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
@@ -73,7 +73,7 @@ test.describe("Testing compare items", () => {
       bagsToCompare[2]
     );
     //Choose third product
-    await mainPage.chooseBagsByName(bagsToCompare[2], addToCompareList);
+    await mainPage.chooseProductByName(bagsToCompare[2], addToCompareList);
 
     await expect(mainPage.successMessage).toContainText(
       alerts.SUCCESSFULLY_ADDED_ITEM_TO_COMPARELIST
